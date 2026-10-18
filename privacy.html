@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy — LazyMouse</title>
+  <meta name="description" content="LazyMouse collects nothing. What it sends, where it goes, and what it keeps on your phone.">
+  <meta name="theme-color" content="#ecedee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16181b" media="(prefers-color-scheme: dark)">
+  <script>try{var t=new URLSearchParams(location.search).get("theme");if(t==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="strip" data-state="idle">
+    <a class="brand" href="index.html"><img src="assets/logo.svg" alt="" width="22" height="22"><span>LazyMouse</span></a>
+    <nav aria-label="Pages">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </header>
+  <main id="main">
+    <article class="sec wrap doc">
+      <h1>Privacy</h1>
+      <p class="honest"><b>LazyMouse collects nothing.</b> It has no account, no analytics, no advertising and no servers of its own. The phone app and the computer app talk to each other directly, over your Wi-Fi, and nothing about you is sent to us or to anyone else. (The one thing that goes outside your network is the computer app asking GitHub whether a newer version exists; see below.)</p>
+
+      <h2>What goes between your phone and your computer</h2>
+      <p>Only when you use the feature, and only to the computer you paired with, on your own network:</p>
+      <ul>
+        <li><b>Pointer, keyboard and volume.</b> The movements, taps, keystrokes and volume presses you make in the app.</li>
+        <li><b>Your phone&rsquo;s name.</b> The name you gave your phone in Settings, so the computer can show which phone is connected, and a random identifier the app makes for itself the first time it runs.</li>
+        <li><b>The screen picture and the computer&rsquo;s sound.</b> Sent from the computer to the phone, only while you have the preview or the sound turned on. Neither is recorded or kept.</li>
+        <li><b>Files and clipboard text.</b> Only the files you choose, and clipboard text only when you press the button that sends it or fetches it. Nothing is copied in the background.</li>
+      </ul>
+
+      <h2>What the app keeps on your phone</h2>
+      <p>The name and network address of the computer you paired with, the secret that lets your phone reconnect to it, the random identifier above, and your light or dark choice. The secret is kept in the iPhone Keychain, on this phone only and not in backups; the rest stays in the app&rsquo;s own storage. Forgetting the computer in the app, or deleting the app, removes them.</p>
+
+      <h2>Permissions</h2>
+      <ul>
+        <li><b>Camera.</b> To read the pairing code on your computer&rsquo;s screen. The picture is looked at on the phone and is not saved or sent anywhere.</li>
+        <li><b>Local network.</b> To find and talk to your computer on your Wi-Fi. LazyMouse only contacts addresses on your own network.</li>
+        <li><b>Photos.</b> Only if you choose to send photos or videos to your computer, and only the ones you pick.</li>
+      </ul>
+
+      <h2>What we do not do</h2>
+      <p>We do not collect, sell, share or track anything about you. There is nothing to opt out of. There are no third-party analytics or advertising tools in the app.</p>
+
+      <h2>The computer app</h2>
+      <p>The computer app keeps a list on that computer of the phones you have paired, and their secrets, and nothing else. It listens on your local network only, and a phone needs the one-time code shown on the computer to pair.</p>
+      <p>It checks for a newer version of itself by asking GitHub for a small file, which tells GitHub the address you are connecting from and which version you have, as any download does. Nothing about your computer, your phone or what you do with them is sent, and an update only installs when you press the button, after its signature has been checked.</p>
+
+      <h2>Children</h2>
+      <p>LazyMouse is not directed at children and collects no information from anyone.</p>
+
+      <h2>Changes</h2>
+      <p>If this ever changes, this page changes first, and the date below with it.</p>
+      <p class="reqs">Last updated: 17 October 2026.</p>
+
+      <h2>Questions</h2>
+      <p data-contact>Contact details are published here when LazyMouse launches.</p>
+    </article>
+  </main>
+  <footer class="foot wrap">
+    <a class="brand" href="index.html"><img src="assets/logo.svg" alt="" width="22" height="22"><span>LazyMouse</span></a>
+    <p>A phone-as-trackpad for the computer on the same Wi-Fi.</p>
+    <a href="privacy.html">Privacy</a>
+    <a href="support.html">Support</a>
+  </footer>
+  <script src="config.js"></script>
+  <script src="legal.js"></script>
+</body>
+</html>

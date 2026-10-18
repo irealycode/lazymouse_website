@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LazyMouse — your phone is the trackpad</title>
+  <meta name="description" content="Turn your phone into a trackpad for the computer on the same Wi-Fi. Pair once. No cloud, no account.">
+  <meta name="theme-color" content="#ecedee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16181b" media="(prefers-color-scheme: dark)">
+  <script>try{var t=new URLSearchParams(location.search).get("theme");if(t==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="strip" id="strip" data-state="idle">
+    <a class="brand" href="#top"><img src="assets/logo.svg" alt="" width="22" height="22"><span>LazyMouse</span></a>
+    <nav aria-label="Sections">
+      <a href="#gestures">Gestures</a>
+      <a href="#pairing">Pairing</a>
+      <a href="#smooth">Smoothness</a>
+      <a href="#install" class="nav-install">Install</a>
+      <a href="support.html" class="nav-support">Support</a>
+    </nav>
+    <span class="state" role="status" aria-live="off">
+      <svg class="marker" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
+        <rect class="m-ring" x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <rect class="m-fill" x="1.5" y="1.5" width="9" height="9" fill="currentColor"/>
+      </svg>
+      <span id="stateText">Link idle</span>
+    </span>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero wrap" aria-labelledby="h-hero">
+      <div class="hero-head">
+        <h1 id="h-hero">
+          <span class="line"><span class="line-in">The trackpad</span></span>
+          <span class="line"><span class="line-in">is in your hand.</span></span>
+        </h1>
+        <div class="hero-side">
+          <p class="lede">Pair your iPhone once. The cursor goes where you throw it, over your own Wi-Fi. Free, with no cloud and no account.</p>
+          <p class="actions">
+            <a class="btn primary" href="#install">Install it, free</a>
+            <a class="btn" href="#gestures">See the gestures</a>
+          </p>
+        </div>
+      </div>
+
+      <figure class="rig" id="rig">
+        <div class="rig-grid">
+          <div class="pad" id="pad" tabindex="0" role="application" aria-label="Demo trackpad. Drag, or use the arrow keys, to move the cursor on the screen beside it.">
+            <svg class="rulers" id="rulers" aria-hidden="true"></svg>
+            <span class="plate-label">Pad</span>
+            <span class="hint" id="hint">Drag here</span>
+            <span class="finger" id="finger" aria-hidden="true"></span>
+          </div>
+          <div class="screen" id="screen" aria-hidden="true">
+            <span class="plate-label">Screen</span>
+            <div class="win w1"><i></i><b></b><b></b><b class="s"></b></div>
+            <div class="win w2"><i></i><b></b><b class="s"></b></div>
+            <div class="win w3"><i></i><b></b><b></b></div>
+            <canvas id="trail"></canvas>
+            <span class="ghost" id="ghost"></span>
+            <svg class="cursor" id="cursor" viewBox="0 0 38.4 66" width="19" height="33"><polygon points="0,0 0,58 12.4,45.6 21.2,66 30.8,61.8 22.4,41.4 38.4,41.4"/></svg>
+          </div>
+        </div>
+        <figcaption class="rig-bar">
+          <div class="ctl" role="radiogroup" aria-label="Link quality">
+            <span class="ctl-name">Link</span>
+            <button role="radio" aria-checked="true" data-link="clean">Clean</button>
+            <button role="radio" aria-checked="false" data-link="wifi">Jittery Wi-Fi</button>
+          </div>
+          <div class="ctl" role="radiogroup" aria-label="How the cursor is placed">
+            <span class="ctl-name">Cursor</span>
+            <button role="radio" aria-checked="true" data-mode="replay">Replayed</button>
+            <button role="radio" aria-checked="false" data-mode="arrival">On arrival</button>
+          </div>
+          <dl class="meter">
+            <div><dt>Cursor lag</dt><dd><span id="rBehind">8</span> ms</dd></div>
+            <div><dt>Late packets</dt><dd><span id="rLate">0</span></dd></div>
+          </dl>
+          <button class="pause" id="pause" type="button" aria-pressed="false">Pause motion</button>
+          <p class="rig-note"><span class="key-finger"></span> finger <span class="key-cursor"></span> cursor. The demo maps the pad onto the screen; the app moves the cursor relatively, like a laptop trackpad.</p>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- GESTURES -->
+    <section class="sec wrap" id="gestures" aria-labelledby="h-gest">
+      <h2 id="h-gest" data-reveal>
+        <span class="line"><span class="line-in">Five gestures.</span></span>
+        <span class="line"><span class="line-in">The ones you already know.</span></span>
+      </h2>
+      <div class="gest" data-reveal>
+        <div class="tabs" role="tablist" aria-label="Gestures">
+          <button role="tab" id="t-move" aria-controls="p-gest" aria-selected="true" data-g="move">Drag<span>Move the cursor</span></button>
+          <button role="tab" id="t-tap" aria-controls="p-gest" aria-selected="false" data-g="tap" tabindex="-1">Tap<span>Left click</span></button>
+          <button role="tab" id="t-right" aria-controls="p-gest" aria-selected="false" data-g="right" tabindex="-1">Two-finger tap<span>Right click</span></button>
+          <button role="tab" id="t-scroll" aria-controls="p-gest" aria-selected="false" data-g="scroll" tabindex="-1">Two-finger drag<span>Scroll</span></button>
+          <button role="tab" id="t-hold" aria-controls="p-gest" aria-selected="false" data-g="hold" tabindex="-1">Hold, then drag<span>Select and move</span></button>
+        </div>
+        <div class="gest-body" id="p-gest" role="tabpanel" aria-labelledby="t-move">
+          <div class="pad mini" id="gpad" aria-hidden="true">
+            <svg class="rulers" id="grulers"></svg>
+            <span class="ring" id="gring"></span>
+            <span class="finger f1" id="gf1"></span>
+            <span class="finger f2" id="gf2"></span>
+          </div>
+          <div class="gest-text">
+            <h3 id="gTitle">Drag one finger</h3>
+            <p id="gBody">The cursor follows. Moving never holds the button down, so a long, slow move cannot select everything it passes over.</p>
+            <pre class="code log" id="glog" aria-label="Messages sent to the computer" aria-live="off"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAIRING -->
+    <section class="sec wrap" id="pairing" aria-labelledby="h-pair">
+      <h2 id="h-pair" data-reveal>
+        <span class="line"><span class="line-in">Scan once.</span></span>
+        <span class="line"><span class="line-in">Never think about it again.</span></span>
+      </h2>
+      <div class="pair">
+        <ol class="steps" id="steps">
+          <li data-reveal>
+            <h3>The computer opens a door</h3>
+            <p>On launch the desktop app picks a fresh 128-bit token, listens on port 8787 and shows a QR code. The token is the introduction and nothing more: it is never sent, only proved, and a phone that pairs uses it up.</p>
+          </li>
+          <li data-reveal>
+            <h3>The phone scans it</h3>
+            <p>The code carries the address and the token. Credentials are checked before the socket is upgraded, so a wrong code gets a plain <code>401</code>, not a connection that fails for no stated reason.</p>
+          </li>
+          <li data-reveal>
+            <h3>Every launch after is a reconnect</h3>
+            <p>Both sides work out a shared secret from the code, so nothing secret is ever sent over the Wi-Fi, and the code stops working the moment it is used. Disconnect, restart either side, change rooms: it reconnects without it. <b>Forget</b> on the desktop revokes the phone.</p>
+          </li>
+        </ol>
+        <pre class="code qr" data-reveal aria-label="What the QR code encodes"><span class="c">// what the QR encodes</span>
+{
+  <span class="k">"v"</span>: 2,
+  <span class="k">"id"</span>: "be15…",
+  <span class="k">"host"</span>: "192.168.1.7",
+  <span class="k">"port"</span>: 8787,
+  <span class="k">"token"</span>: "9eb5…",
+  <span class="k">"name"</span>: "desk"
+}</pre>
+      </div>
+    </section>
+
+    <!-- SMOOTHNESS -->
+    <section class="sec inverse" id="smooth" aria-labelledby="h-smooth">
+      <div class="wrap">
+        <h2 id="h-smooth" data-reveal>
+          <span class="line"><span class="line-in">Smooth is measured,</span></span>
+          <span class="line"><span class="line-in">not adjusted by feel.</span></span>
+        </h2>
+        <div class="smooth">
+          <div class="smooth-copy" data-reveal>
+            <p>Wi-Fi delivers a finger's path in lumps. Apply each lump as it arrives and the cursor shows the network's timing instead of yours.</p>
+            <p>So every move packet carries the moment of the touch, and the computer replays the path from those times, a few milliseconds behind. A late packet changes nothing if it lands before the playhead needs it.</p>
+            <p class="cost"><b>What it costs.</b> Latency. The delay is 8 ms on a clean link and grows with measured jitter, capped at 60 ms. A poor link now trails a little more and stutters far less.</p>
+          </div>
+          <div class="bars" id="bars" role="img" aria-label="Path unevenness of a simulated swipe, in pixels. Before: 5.8 to 7.0. After on jittery Wi-Fi: 2.8. After on a clean link: 1.7.">
+            <p class="bars-title">Unevenness of a brisk swipe, px at 60&nbsp;Hz. Lower is smoother.</p>
+            <div class="bar before"><span class="bar-name">Before, any link</span><span class="track"><i style="--from:5.8;--to:7.0"></i></span><span class="bar-val">5.8–7.0</span></div>
+            <div class="bar"><span class="bar-name">Now, jittery Wi-Fi</span><span class="track"><i style="--to:2.8"></i></span><span class="bar-val" data-count="2.8">2.8</span></div>
+            <div class="bar"><span class="bar-name">Now, clean link</span><span class="track"><i style="--to:1.7"></i></span><span class="bar-val" data-count="1.7">1.7</span></div>
+            <p class="bars-foot">On the real machine, end to end: 1.5 px clean, 1.6 px with jitter. The simulator predicted 1.1 and 1.7.</p>
+          </div>
+        </div>
+        <p class="limit" data-reveal><b>One stall we cannot remove.</b> On Windows, <code>SetCursorPos</code> can block for 15–30&nbsp;ms when the pointer crosses into a window that is slow to answer a hit-test. A hitch at the same spot every time is that, not the network.</p>
+      </div>
+    </section>
+
+    <!-- THE REST OF THE KIT -->
+    <section class="sec wrap" id="kit" aria-labelledby="h-kit">
+      <h2 id="h-kit" data-reveal>
+        <span class="line"><span class="line-in">Small surface.</span></span>
+        <span class="line"><span class="line-in">What you actually need.</span></span>
+      </h2>
+      <div class="kit">
+        <article class="kit-a" data-reveal>
+          <h3>One thumb, three states</h3>
+          <p>You cannot hold ctrl and press a letter with one thumb. So ctrl, shift and alt are armed by one tap and held by two. A held alt stays down on the computer, which is what alt-tab needs.</p>
+          <div class="mods" id="mods">
+            <button data-mod="ctrl" data-s="off" aria-label="ctrl, off">ctrl</button>
+            <button data-mod="shift" data-s="off" aria-label="shift, off">shift</button>
+            <button data-mod="alt" data-s="off" aria-label="alt, off">alt</button>
+            <span class="mod-state" id="modState" aria-live="polite">Tap a key. Tap again to hold it.</span>
+          </div>
+          <pre class="code log short" id="modLog" aria-label="Messages sent to the computer"><span class="row old">// tap a key to see what is sent</span></pre>
+        </article>
+        <article class="kit-b" data-reveal>
+          <h3>See what you are pointing at</h3>
+          <p>The phone can show the computer's screen. Zoom crops the source rather than magnifying the picture, so detail appears instead of blur, and it costs less to send.</p>
+          <div class="zoom">
+            <div class="zoom-screen" id="zoomScreen" aria-hidden="true">
+              <div class="zoom-scene" id="zoomScene">
+                <div class="win w1"><i></i><b></b><b></b><b class="s"></b></div>
+                <div class="win w2"><i></i><b></b><b class="s"></b></div>
+                <div class="win w3"><i></i><b></b><b></b></div>
+                <svg class="cursor" viewBox="0 0 38.4 66" width="19" height="33"><polygon points="0,0 0,58 12.4,45.6 21.2,66 30.8,61.8 22.4,41.4 38.4,41.4"/></svg>
+              </div>
+            </div>
+            <label class="zoom-ctl">Zoom <input type="range" id="zoomRange" min="1" max="8" step="0.1" value="1"> <output id="zoomOut">1×</output></label>
+          </div>
+        </article>
+        <article class="kit-c" data-reveal>
+          <div>
+            <h3>Files, volume and a keyboard</h3>
+            <p>Send photos and files to the computer, or pick up what it has waiting for you, over the same Wi-Fi and never through a server. The bar under the pad holds the keyboard, the screen preview and files, and volume sits on the pad's edge: louder above, quieter below, with mute between them, which reads <b>Unmute</b> once the app believes the computer is muted. Type anything, including emoji and non-Latin text.</p>
+          </div>
+          <figure class="app">
+            <div class="phone">
+              <picture>
+                <source media="(prefers-color-scheme: dark)" srcset="assets/app-dark.png">
+                <img src="assets/app-light.png" width="390" height="780" alt="The phone app: a full-height trackpad with a ruler along its edges, the gesture legend, and a bar of Keyboard, Screen and Files." loading="lazy">
+              </picture>
+            </div>
+            <figcaption>The phone app.</figcaption>
+          </figure>
+        </article>
+      </div>
+    </section>
+
+    <!-- PRIVATE -->
+    <section class="sec wrap" id="private" aria-labelledby="h-priv">
+      <h2 id="h-priv" data-reveal>
+        <span class="line"><span class="line-in">It never leaves</span></span>
+        <span class="line"><span class="line-in">the network.</span></span>
+      </h2>
+      <dl class="facts" data-reveal>
+        <div><dt>Accounts or cloud services</dt><dd>0</dd><p>The phone talks to the computer directly, on your network.</p></div>
+        <div><dt>Pairing token</dt><dd>128<small>-bit</small></dd><p>Fresh on every launch, and spent by the first pairing. A release build never prints it.</p></div>
+        <div><dt>Phones at once</dt><dd>1</dd><p>A second device is refused while the first holds the session.</p></div>
+      </dl>
+    </section>
+
+    <!-- INSTALL -->
+    <section class="sec wrap" id="install" aria-labelledby="h-inst">
+      <h2 id="h-inst" data-reveal>
+        <span class="line"><span class="line-in">Free. Two installs.</span></span>
+        <span class="line"><span class="line-in">One Wi-Fi network.</span></span>
+      </h2>
+      <p class="honest" data-reveal>LazyMouse is free, and it stays free: no account, no subscription, no paid tier. Install it on the computer and on your iPhone, join the same Wi-Fi, and scan the code the computer shows. Today that means Windows and iPhone; macOS and Linux versions are on the way.</p>
+      <div class="two">
+        <article class="card" data-reveal id="get-windows">
+          <div class="card-head">
+            <img class="app-ico flat" src="assets/desktop-icon.svg" alt="" width="84" height="84">
+            <div><h3>Computer</h3><p class="meta">Windows 10 or later, beta. macOS and Linux on the way.</p></div>
+          </div>
+          <a class="store soon" data-dl="windows" data-soon="Windows download: coming soon">
+            <span class="store-ico"><img src="assets/desktop-icon.svg" alt="" width="58" height="58"></span>
+            <span class="store-txt"><small>Download for</small><b>Windows</b></span>
+            <span class="store-go" aria-hidden="true"><span class="tag">Soon</span><svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
+          </a>
+          <p class="dl-note" data-note="windows">Not available yet. The installer will be here when LazyMouse launches.</p>
+          <p class="after">Run it, and a QR code appears. That is all the computer needs.</p>
+          <p class="beta-note">Beta 0.1.0, an <code>.msi</code> installer. Windows may warn that the publisher is unrecognised, because the installer is new: choose <b>More info</b>, then <b>Run anyway</b>. The app updates itself when you ask it to.</p>
+          <ul class="platforms" aria-label="Computer platforms">
+            <li><span>Windows</span><span class="state now">Beta</span></li>
+            <li><span>macOS</span><span class="state">On the way</span></li>
+            <li><span>Linux</span><span class="state">On the way</span></li>
+          </ul>
+        </article>
+        <article class="card" data-reveal id="get-iphone">
+          <div class="card-head">
+            <span class="glass" id="glass" aria-hidden="true"><img src="assets/app-icon.png" alt="" width="84" height="84"></span>
+            <div><h3>iPhone</h3><p class="meta">iPhone only for now</p></div>
+          </div>
+          <a class="store soon" data-dl="ios" data-soon="iPhone app: coming soon to the App Store">
+            <span class="store-ico glass-mini"><img src="assets/app-icon.png" alt="" width="58" height="58"></span>
+            <span class="store-txt"><small>Download on the</small><b>App Store</b></span>
+            <span class="store-go" aria-hidden="true"><span class="tag">Soon</span><svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
+          </a>
+          <p class="dl-note" data-note="ios">Not available yet. LazyMouse is coming to the App Store.</p>
+          <p class="after">Open it, scan the QR code on your computer, and the pad takes over.</p>
+        </article>
+      </div>
+      <p class="reqs" data-reveal>Both halves have to be the same version. The pair refuses to connect otherwise, and says why.</p>
+    </section>
+    <section class="close" aria-labelledby="h-close">
+      <div class="wrap">
+        <h2 id="h-close"><span class="line"><span class="line-in">Pair once.</span></span><span class="line"><span class="line-in">Stay on the couch.</span></span></h2>
+        <p>Scan the code, put the computer down, and the cursor is under your thumb.</p>
+        <a class="btn" href="#install">Install it, free</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot wrap">
+    <a class="brand" href="#top"><img src="assets/logo.svg" alt="" width="22" height="22"><span>LazyMouse</span></a>
+    <p>A phone-as-trackpad for the computer on the same Wi-Fi.</p>
+    <a href="privacy.html">Privacy</a>
+    <a href="support.html">Support</a>
+    <a href="#top" class="to-top">Back to top</a>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
