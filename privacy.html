@@ -26,43 +26,82 @@
   </header>
   <main id="main">
     <article class="sec wrap doc">
-      <h1>Privacy</h1>
-      <p class="honest"><b>LazyMouse collects nothing.</b> It has no account, no analytics, no advertising and no servers of its own. The phone app and the computer app talk to each other directly, over your Wi-Fi, and nothing about you is sent to us or to anyone else. (The one thing that goes outside your network is the computer app asking GitHub whether a newer version exists; see below.)</p>
+      <h1>Privacy policy</h1>
+      <p class="reqs">Effective 18 October 2026. Applies to the LazyMouse app for iPhone, the LazyMouse app for computers, and this website.</p>
+      <p class="honest"><b>LazyMouse collects nothing about you.</b> It has no account, no analytics, no advertising and no servers of its own. The phone app and the computer app talk to each other directly, over your own Wi-Fi, and nothing about you is sent to us or to anyone else. The one thing that goes outside your network is the computer app asking GitHub whether a newer version exists (see <a href="#computer">The computer app</a>).</p>
 
-      <h2>What goes between your phone and your computer</h2>
-      <p>Only when you use the feature, and only to the computer you paired with, on your own network:</p>
+      <nav class="jump" aria-label="On this page">
+        <a href="#who">Who we are</a>
+        <a href="#phone">The iPhone app</a>
+        <a href="#computer">The computer app</a>
+        <a href="#website">This website</a>
+        <a href="#others">Other services</a>
+        <a href="#keep">What is kept, and removing it</a>
+        <a href="#security">Security</a>
+        <a href="#children">Children</a>
+        <a href="#rights">Your rights</a>
+        <a href="#changes">Changes</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <h2 id="who">Who we are</h2>
+      <p>LazyMouse is made and published by <b>SovereignCo SARL</b>, referred to here as &ldquo;we&rdquo;. We do not run a service that holds information about you, so for the apps themselves there is no personal data held by us to protect, list or hand over. You can reach us at <a href="mailto:info@sovereignco.net">info@sovereignco.net</a>.</p>
+
+      <h2 id="phone">The iPhone app</h2>
+      <p><b>What it asks to use, and why.</b></p>
       <ul>
-        <li><b>Pointer, keyboard and volume.</b> The movements, taps, keystrokes and volume presses you make in the app.</li>
-        <li><b>Your phone&rsquo;s name.</b> The name you gave your phone in Settings, so the computer can show which phone is connected, and a random identifier the app makes for itself the first time it runs.</li>
-        <li><b>The screen picture and the computer&rsquo;s sound.</b> Sent from the computer to the phone, only while you have the preview or the sound turned on. Neither is recorded or kept.</li>
-        <li><b>Files and clipboard text.</b> Only the files you choose, and clipboard text only when you press the button that sends it or fetches it. Nothing is copied in the background.</li>
+        <li><b>Camera.</b> To read the pairing code shown by the computer app. The picture is looked at on the phone to find the code, and is not saved, recorded or sent anywhere.</li>
+        <li><b>Local network.</b> To find and talk to your computer on your Wi-Fi. The app only contacts addresses on your own local network, and your computer is the only thing it talks to.</li>
+        <li><b>Photos.</b> Only if you choose to send photos or videos to your computer. The app sees only the ones you pick.</li>
+      </ul>
+      <p><b>What it sends, and to where.</b> Everything below goes only to the computer you paired with, over your local network, and only when you use the feature:</p>
+      <ul>
+        <li>The movements, taps, scrolls, keystrokes and volume presses you make in the app.</li>
+        <li>The name you gave your phone in Settings (for example &ldquo;Sam&rsquo;s iPhone&rdquo;), so the computer can show which phone is connected, and a random identifier the app creates for itself the first time it runs.</li>
+        <li>Files you choose to send, and clipboard text only when you press the button that sends it. The app never reads your clipboard on its own.</li>
+        <li>In the other direction, the computer sends the phone its screen picture and its sound while you have those turned on, the files it offers, and clipboard text when you ask for it. Nothing is recorded or kept.</li>
+      </ul>
+      <p><b>What it stores on your phone.</b> The name, network address and identifier of the computer you paired with, the secret that lets your phone reconnect to it (kept in the iPhone Keychain, on this phone only and not in backups), the random identifier above, and your light or dark choice. Files you receive are saved where you choose to put them.</p>
+      <p><b>What it does not do.</b> It does not use advertising or analytics tools, does not track you across apps or websites, does not contain any third-party software that collects data, and does not read your contacts, location, microphone or health data. The demo mode on the first screen sends nothing anywhere.</p>
+
+      <h2 id="computer">The computer app</h2>
+      <ul>
+        <li><b>What it keeps.</b> A small file on your computer with the phone you have paired (its random identifier, its name and the shared secret), and the files you receive, which go into a <code>LazyMouse</code> folder in your Downloads folder. Nothing else about you or your phone is stored.</li>
+        <li><b>Who can reach it.</b> It listens on your local network only. It refuses connections from outside it, and a phone has to prove it knows a one-time code shown on the computer before it is let in. Only one phone can be connected at a time.</li>
+        <li><b>Update checks.</b> From time to time it asks GitHub for a small file that says whether a newer version exists. That request tells GitHub the address you are connecting from and which version you have, as any download does, and nothing else: nothing about your computer, your phone, or what you do with them. An update is installed only when you press the button, and only after its signature has been checked. GitHub's handling of that request is described in its own privacy statement.</li>
       </ul>
 
-      <h2>What the app keeps on your phone</h2>
-      <p>The name and network address of the computer you paired with, the secret that lets your phone reconnect to it, the random identifier above, and your light or dark choice. The secret is kept in the iPhone Keychain, on this phone only and not in backups; the rest stays in the app&rsquo;s own storage. Forgetting the computer in the app, or deleting the app, removes them.</p>
+      <h2 id="website">This website</h2>
+      <p>This site has no cookies, no analytics and no tracking, and it does not ask you for anything. Its pages load the Barlow typeface from Google Fonts, which means your browser contacts Google to fetch the font files and Google can see your address when it does. The download button on the home page takes you to GitHub, which serves the file.</p>
 
-      <h2>Permissions</h2>
+      <h2 id="others">Other services involved</h2>
       <ul>
-        <li><b>Camera.</b> To read the pairing code on your computer&rsquo;s screen. The picture is looked at on the phone and is not saved or sent anywhere.</li>
-        <li><b>Local network.</b> To find and talk to your computer on your Wi-Fi. LazyMouse only contacts addresses on your own network.</li>
-        <li><b>Photos.</b> Only if you choose to send photos or videos to your computer, and only the ones you pick.</li>
+        <li><b>Apple.</b> The iPhone app is distributed through the App Store and may be tested through TestFlight. Apple handles your Apple ID, purchases and downloads under its own privacy policy. If you have turned on &ldquo;Share With App Developers&rdquo; in your iPhone&rsquo;s analytics settings, Apple may give us anonymous, aggregated crash and usage figures through App Store Connect. They do not identify you, and we do not use them to try to.</li>
+        <li><b>GitHub</b>, for the update check and the computer app download, as described above.</li>
+        <li><b>Google Fonts</b>, for this website, as described above.</li>
+      </ul>
+      <p>We do not sell, rent or share information about you with anyone, and we do not receive any to share.</p>
+
+      <h2 id="keep">What is kept, and removing it</h2>
+      <ul>
+        <li><b>On your phone:</b> forget the computer in the app (or delete the app) and the pairing, the identifier and the secret are gone.</li>
+        <li><b>On your computer:</b> press <b>Forget</b> in the computer app to remove the remembered phone, and uninstall the app to remove its settings. Files you received stay in your Downloads folder until you delete them.</li>
+        <li><b>Held by us:</b> nothing, so there is nothing to delete.</li>
       </ul>
 
-      <h2>What we do not do</h2>
-      <p>We do not collect, sell, share or track anything about you. There is nothing to opt out of. There are no third-party analytics or advertising tools in the app.</p>
+      <h2 id="security">Security</h2>
+      <p>The phone proves itself to the computer with a one-time challenge, so the pairing secret is never sent over the network, a pairing code works once, and each connection gets its own access token. Updates are signed and checked before they run. The connection between the phone and the computer is not yet encrypted, so what you type, the screen picture and the clipboard cross your network in a form that someone else on that network could read. Use LazyMouse on a network you trust, such as your home Wi-Fi, rather than shared or public ones. Press <b>Forget</b> on the computer for any phone you no longer have.</p>
 
-      <h2>The computer app</h2>
-      <p>The computer app keeps a list on that computer of the phones you have paired, and their secrets, and nothing else. It listens on your local network only, and a phone needs the one-time code shown on the computer to pair.</p>
-      <p>It checks for a newer version of itself by asking GitHub for a small file, which tells GitHub the address you are connecting from and which version you have, as any download does. Nothing about your computer, your phone or what you do with them is sent, and an update only installs when you press the button, after its signature has been checked.</p>
+      <h2 id="children">Children</h2>
+      <p>LazyMouse is not directed at children, and it collects no information from anyone, children included.</p>
 
-      <h2>Children</h2>
-      <p>LazyMouse is not directed at children and collects no information from anyone.</p>
+      <h2 id="rights">Your rights</h2>
+      <p>Laws such as the GDPR, the UK GDPR and the California Consumer Privacy Act give people rights over personal data a business holds about them: to see it, correct it, delete it, move it, or object to how it is used. Because we hold no personal data about you, there is nothing for those rights to apply to, and we do not sell or share personal information. If you think we hold something about you, or have a question about this policy, write to us and we will answer. You can also complain to your local data protection authority.</p>
 
-      <h2>Changes</h2>
-      <p>If this ever changes, this page changes first, and the date below with it.</p>
-      <p class="reqs">Last updated: 17 October 2026.</p>
+      <h2 id="changes">Changes</h2>
+      <p>If this policy changes, this page changes first, and the date at the top changes with it. If a change ever meant collecting information, we would say so in the apps before it started and ask you first.</p>
 
-      <h2>Questions</h2>
+      <h2 id="contact">Contact</h2>
       <p data-contact>Contact details are published here when LazyMouse launches.</p>
     </article>
   </main>
