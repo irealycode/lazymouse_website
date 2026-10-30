@@ -9,7 +9,7 @@
  *            (the App Store needs both pages to name a way to reach you)
  */
 window.LAZYMOUSE_LINKS = {
-  windows: "https://github.com/irealycode/lazymouse_releases/releases/download/Beta/LazyMouse_0.1.0_x64_en-US.msi",
+  windows: "https://github.com/irealycode/lazymouse_releases/releases/download/1.0.1/LazyMouse_1.0.1_x64_en-US.msi",
   ios: "",
   support: "info@sovereignco.net",
 };

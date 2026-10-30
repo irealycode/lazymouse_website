@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LazyMouse — your phone is the trackpad</title>
-  <meta name="description" content="Turn your phone into a trackpad for the computer on the same Wi-Fi. Pair once. No cloud, no account.">
+  <meta name="description" content="Turn your phone into a trackpad for the computer on the same Wi-Fi, and ask it out loud: a ghost points at what you mean. Pair once. No cloud, no account.">
   <meta name="theme-color" content="#ecedee" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#16181b" media="(prefers-color-scheme: dark)">
   <script>try{var t=new URLSearchParams(location.search).get("theme");if(t==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
@@ -21,6 +21,7 @@
     <a class="brand" href="#top"><img src="assets/logo.svg" alt="" width="22" height="22"><span>LazyMouse</span></a>
     <nav aria-label="Sections">
       <a href="#gestures">Gestures</a>
+      <a href="#ask">Ask</a>
       <a href="#pairing">Pairing</a>
       <a href="#smooth">Smoothness</a>
       <a href="#install" class="nav-install">Install</a>
@@ -44,10 +45,10 @@
           <span class="line"><span class="line-in">is in your hand.</span></span>
         </h1>
         <div class="hero-side">
-          <p class="lede">Pair your iPhone once. The cursor goes where you throw it, over your own Wi-Fi. Free, with no account and nothing through our servers.</p>
+          <p class="lede">Pair your iPhone once. The cursor goes where you throw it, over your own Wi-Fi. Say what you want and a ghost points at it. Free, with no account and nothing through our servers.</p>
           <p class="actions">
             <a class="btn primary" href="#install">Install it, free</a>
-            <a class="btn" href="#gestures">See the gestures</a>
+            <a class="btn" href="#ask">Watch the ghost point</a>
           </p>
         </div>
       </div>
@@ -119,6 +120,102 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ASK -->
+    <section class="sec wrap" id="ask" aria-labelledby="h-ask">
+      <h2 id="h-ask" data-reveal>
+        <span class="line"><span class="line-in">Or just say it.</span></span>
+        <span class="line"><span class="line-in">The ghost shows you.</span></span>
+      </h2>
+      <p class="ask-lede" data-reveal>Ask what you are looking at. The assistant reads the screen and explains it part by part, and the ghost that follows your cursor goes to each part as it is spoken about.</p>
+
+      <figure class="scene" id="scene">
+        <div class="scene-grid">
+          <div class="desk" id="desk" role="img" aria-label="A computer screen with Audacity open and the LazyMouse app running in a corner. The ghost beside the mouse pointer goes to the Audacity window, then its Record button, then its tracks, as the assistant explains each.">
+            <div class="plane" id="plane" aria-hidden="true">
+              <!-- Audacity, drawn in the screen's own pixels -->
+              <div class="aud" id="aud">
+                <div class="aud-title"><i class="lights"><b class="r"></b><b class="y"></b><b class="g"></b></i><span><svg viewBox="0 0 16 16" width="13" height="13"><rect width="16" height="16" rx="3" fill="#1d2a4d"/><path d="M1 8h2l1-4 2 8 2-10 2 12 1-6h4" fill="none" stroke="#8fb0ff" stroke-width="1.2"/></svg>Audacity</span></div>
+                <div class="aud-menu"><span>File</span><span>Edit</span><span>Select</span><span>View</span><span>Transport</span><span>Tracks</span><span>Generate</span><span>Effect</span><span>Analyze</span><span>Tools</span><span>Help</span></div>
+                <div class="aud-tools">
+                  <div class="tb transport">
+                    <i class="bt"><svg viewBox="0 0 20 20"><path d="M6 4h3v12H6zM11 4h3v12h-3z"/></svg></i>
+                    <i class="bt play"><svg viewBox="0 0 20 20"><path d="M6 3.5v13l11-6.5z"/></svg></i>
+                    <i class="bt"><svg viewBox="0 0 20 20"><path d="M5 5h10v10H5z"/></svg></i>
+                    <i class="bt"><svg viewBox="0 0 20 20"><path d="M5 4h2v12H5zM17 4v12L8 10z"/></svg></i>
+                    <i class="bt"><svg viewBox="0 0 20 20"><path d="M13 4h2v12h-2zM3 4v12l9-6z"/></svg></i>
+                    <i class="bt rec" id="audRecord"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="6"/></svg></i>
+                  </div>
+                  <div class="tb tools">
+                    <i class="bt on"><svg viewBox="0 0 20 20"><path d="M7 3h6M7 17h6M10 3v14" fill="none" stroke-width="1.6"/></svg></i>
+                    <i class="bt"><svg viewBox="0 0 20 20"><path d="M3 14c3-8 5-8 7 0s4 8 7-2" fill="none" stroke-width="1.6"/></svg></i>
+                    <i class="bt"><svg viewBox="0 0 20 20"><path d="M4 16l9-9 3 3-9 9H4z"/></svg></i>
+                    <i class="bt"><svg viewBox="0 0 20 20"><circle cx="9" cy="9" r="5" fill="none" stroke-width="1.6"/><path d="M13 13l4 4" stroke-width="1.8"/></svg></i>
+                  </div>
+                  <div class="meters">
+                    <div class="mt"><em>R</em><span><u></u></span></div>
+                    <div class="mt"><em>L</em><span><u></u></span></div>
+                    <div class="mt"><em>R</em><span><u></u></span></div>
+                    <div class="mt"><em>L</em><span><u></u></span></div>
+                  </div>
+                </div>
+                <div class="aud-ruler"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span></div>
+                <div class="aud-tracks" id="audTracks">
+                  <div class="trk">
+                    <div class="trk-head"><b>Voice</b><span>Mono, 44100Hz</span><div class="trk-btns"><i>Mute</i><i>Solo</i></div><div class="trk-sl"><u></u></div></div>
+                    <svg class="wf" id="wf1" viewBox="0 0 480 120" preserveAspectRatio="none"></svg>
+                  </div>
+                  <div class="trk">
+                    <div class="trk-head"><b>Music</b><span>Stereo, 44100Hz</span><div class="trk-btns"><i>Mute</i><i>Solo</i></div><div class="trk-sl"><u></u></div></div>
+                    <svg class="wf" id="wf2" viewBox="0 0 480 120" preserveAspectRatio="none"></svg>
+                  </div>
+                </div>
+                <div class="aud-status"><span>Project Rate (Hz): 44100</span><span>Snap-To: Off</span><span>Selection Start: 00 h 00 m 00.000 s</span></div>
+              </div>
+
+              <!-- LazyMouse, running -->
+              <div class="lmw" id="lmw">
+                <div class="lmw-bar"><svg viewBox="0 0 10 10" width="10" height="10"><rect width="10" height="10"/></svg><span>Connected to iPhone</span><i class="lmw-x"></i></div>
+                <div class="lmw-body">
+                  <p><b>iPhone</b><br>Connected, on this Wi-Fi.</p>
+                  <p class="lmw-small">The ghost follows the pointer while the phone is in control.</p>
+                  <span class="lmw-btn">Disconnect</span>
+                </div>
+              </div>
+
+              <div class="taskbar"><i class="tb-start"></i><i class="tb-search"></i><i class="tb-app on"></i><i class="tb-app"></i><span class="tb-tray"><i class="tb-ghost"></i><b>15:29</b></span></div>
+
+              <div class="gl" id="gl"></div>
+            </div>
+          </div>
+
+          <div class="phonebox" id="phoneBox">
+            <div class="ph-hold"><div class="ph" id="ph" aria-hidden="true">
+              <div class="ph-top">
+                <div class="ph-status"><b>15:29</b><span class="ph-icons"><i></i><i></i><i></i></span></div>
+                <div class="ph-strip"><span class="ph-who"><svg viewBox="-86 -106 172 215" width="18" height="22"><path class="gb" d=""/><g class="ge"></g></svg><b>Connected</b></span><span class="ph-btns"><i>Light</i><i>Disconnect</i></span></div>
+              </div>
+              <div class="ph-asst"><span class="ph-who2"><svg viewBox="-86 -106 172 215" width="26" height="32"><path class="gb" d=""/><g class="ge"></g></svg><b>Assistant</b></span><i class="ph-set">Settings</i></div>
+              <div class="ph-log" id="phLog"></div>
+              <div class="ph-dock" id="phDock">
+                <div class="ph-band" id="phBand"><b id="phWord">Listening</b><span class="ph-ruler" id="phRuler"></span></div>
+                <div class="ph-row" id="phRow">
+                  <i class="sq" id="phMute"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" fill="none"/></svg><em>Mute</em></i>
+                  <i class="sq" id="phHush"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none"/></svg><em>Hush</em></i>
+                  <i class="sq"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="none"/><path d="M6 10h2M10 10h2M14 10h2M7 14h10" fill="none"/></svg><em>Type</em></i>
+                  <i class="bar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none"/></svg><b>End</b></i>
+                </div>
+              </div>
+              <div class="ph-tabs"><span><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="none"/><path d="M6 10h2M10 10h2M14 10h2M7 14h10" fill="none"/></svg>Keyboard</span><span><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1" fill="none"/><path d="M9 20h6M12 16v4" fill="none"/></svg>Screen</span><span><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 20h14" fill="none"/></svg>Files</span><span class="on"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z" fill="none"/></svg>Ask</span></div>
+            </div></div>
+          </div>
+        </div>
+        <figcaption class="scene-foot">
+          <p class="ask-note">A drawing of the real thing, moved by the app's own rules: the ghost's flights, its springs, the barrier and the ruler. The assistant is OpenAI's, on your own key.</p>
+          <button type="button" class="btn" id="sceneReplay">Replay</button>
+        </figcaption>
+      </figure>
     </section>
 
     <!-- PAIRING -->
@@ -215,13 +312,13 @@
         <article class="kit-c" data-reveal>
           <div>
             <h3>Files, volume and a keyboard</h3>
-            <p>Send photos and files to the computer, or pick up what it has waiting for you, over the same Wi-Fi and never through a server. The bar under the pad holds the keyboard, the screen preview and files, and volume sits on the pad's edge: louder above, quieter below, with mute between them, which reads <b>Unmute</b> once the app believes the computer is muted. Type anything, including emoji and non-Latin text.</p>
+            <p>Send photos and files to the computer, or pick up what it has waiting for you, over the same Wi-Fi and never through a server. The bar under the pad holds the keyboard, the screen preview, files and the assistant, and volume sits on the pad's edge: louder above, quieter below, with mute between them, which reads <b>Unmute</b> once the app believes the computer is muted. Type anything, including emoji and non-Latin text.</p>
           </div>
           <figure class="app">
             <div class="phone">
               <picture>
                 <source media="(prefers-color-scheme: dark)" srcset="assets/app-dark.png">
-                <img src="assets/app-light.png" width="390" height="780" alt="The phone app: a full-height trackpad with a ruler along its edges, the gesture legend, and a bar of Keyboard, Screen and Files." loading="lazy">
+                <img src="assets/app-light.png" width="390" height="844" alt="The phone app: a full-height trackpad with a ruler along its edges, the gesture legend, and a bar of Keyboard, Screen, Files and Ask." loading="lazy">
               </picture>
             </div>
             <figcaption>The phone app.</figcaption>

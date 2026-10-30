@@ -26,6 +26,7 @@ Each demo answers a question rather than decorating:
   demo's link state, as in the desktop app.
 - **Gestures** loop the five gestures and print the real protocol messages each
   one sends.
+- **Ask** is the desktop with Audacity open and LazyMouse running, and the phone's Ask tab beside it, one scene that plays once when it is mostly on screen (Replay plays it again). The ghost is a port of the desktop app's own (`desktop/src/buddy.ts`, `src-tauri/src/buddy.rs`, `frame.ts`): the arc and timing of its flights, its spring, the ring, arm and label when it points, the barrier it grows into when it frames something big, the eyes and the blink. The phone is `AssistantPanel.tsx`: the rows, the band, the ruler of 36 ticks. The explanation is the app's own tour: for each part the ghost is sent there and the voice says just that part. Under reduced motion it shows one still frame.
 - **Pairing** fills its line as the steps are reached.
 - **The numbers in the smoothness section** are the measured ones from
   `PROJECT.md` and `desktop/scripts/smoothness.mjs`. Change them there first.
