@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Privacy — LazyMouse</title>
-  <meta name="description" content="LazyMouse collects nothing. What it sends, where it goes, and what it keeps on your phone.">
+  <meta name="description" content="LazyMouse collects nothing about you. What it sends, where it goes (including to OpenAI if you use the voice assistant), and what it keeps on your phone.">
   <meta name="theme-color" content="#ecedee" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#16181b" media="(prefers-color-scheme: dark)">
   <script>try{var t=new URLSearchParams(location.search).get("theme");if(t==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
@@ -27,12 +27,13 @@
   <main id="main">
     <article class="sec wrap doc">
       <h1>Privacy policy</h1>
-      <p class="reqs">Effective 18 October 2026. Applies to the LazyMouse app for iPhone, the LazyMouse app for computers, and this website.</p>
-      <p class="honest"><b>LazyMouse collects nothing about you.</b> It has no account, no analytics, no advertising and no servers of its own. The phone app and the computer app talk to each other directly, over your own Wi-Fi, and nothing about you is sent to us or to anyone else. The one thing that goes outside your network is the computer app asking GitHub whether a newer version exists (see <a href="#computer">The computer app</a>).</p>
+      <p class="reqs">Effective 30 October 2026. Applies to the LazyMouse app for iPhone, the LazyMouse app for computers, and this website.</p>
+      <p class="honest"><b>LazyMouse collects nothing about you.</b> It has no account, no analytics, no advertising and no servers of its own, and nothing about you is sent to us. The phone app and the computer app talk to each other directly, over your own Wi-Fi. Three things go outside your network: the <b>voice assistant</b>, which is off until you add your own OpenAI key and which sends what you say, and pictures and text from your computer&rsquo;s screen when you ask it to look, to OpenAI (see <a href="#assistant">The voice assistant</a>); the phone app checking Expo for a newer version of itself (see <a href="#phone">The iPhone app</a>); and the computer app asking GitHub whether a newer version exists (see <a href="#computer">The computer app</a>).</p>
 
       <nav class="jump" aria-label="On this page">
         <a href="#who">Who we are</a>
         <a href="#phone">The iPhone app</a>
+        <a href="#assistant">The voice assistant</a>
         <a href="#computer">The computer app</a>
         <a href="#website">This website</a>
         <a href="#others">Other services</a>
@@ -53,16 +54,32 @@
         <li><b>Camera.</b> To read the pairing code shown by the computer app. The picture is looked at on the phone to find the code, and is not saved, recorded or sent anywhere.</li>
         <li><b>Local network.</b> To find and talk to your computer on your Wi-Fi. The app only contacts addresses on your own local network, and your computer is the only thing it talks to.</li>
         <li><b>Photos.</b> Only if you choose to send photos or videos to your computer. The app sees only the ones you pick.</li>
+        <li><b>Microphone.</b> Only for the voice assistant, and only while a conversation with it is open. Without the assistant, the microphone is never used. What the microphone hears is sent to OpenAI (see <a href="#assistant">The voice assistant</a>), not to your computer and not to us.</li>
       </ul>
-      <p><b>What it sends, and to where.</b> Everything below goes only to the computer you paired with, over your local network, and only when you use the feature:</p>
+      <p><b>What it sends, and to where.</b> Everything in this list goes only to the computer you paired with, over your local network, and only when you use the feature. The voice assistant is the exception and has its own section, <a href="#assistant">below</a>.</p>
       <ul>
         <li>The movements, taps, scrolls, keystrokes and volume presses you make in the app.</li>
         <li>The name you gave your phone in Settings (for example &ldquo;Sam&rsquo;s iPhone&rdquo;), so the computer can show which phone is connected, and a random identifier the app creates for itself the first time it runs.</li>
         <li>Files you choose to send, and clipboard text only when you press the button that sends it. The app never reads your clipboard on its own.</li>
         <li>In the other direction, the computer sends the phone its screen picture and its sound while you have those turned on, the files it offers, and clipboard text when you ask for it. Nothing is recorded or kept.</li>
       </ul>
-      <p><b>What it stores on your phone.</b> The name, network address and identifier of the computer you paired with, the secret that lets your phone reconnect to it (kept in the iPhone Keychain, on this phone only and not in backups), the random identifier above, and your light or dark choice. Files you receive are saved where you choose to put them.</p>
-      <p><b>What it does not do.</b> It does not use advertising or analytics tools, does not track you across apps or websites, does not contain any third-party software that collects data, and does not read your contacts, location, microphone or health data. The demo mode on the first screen sends nothing anywhere.</p>
+      <p><b>What it stores on your phone.</b> The name, network address and identifier of the computer you paired with, the secret that lets your phone reconnect to it (kept in the iPhone Keychain, on this phone only and not in backups), the random identifier above, your light or dark choice, your shortcuts, and, if you use the voice assistant, your OpenAI key (kept in the iPhone Keychain, on this phone only and not in backups). Files you receive are saved where you choose to put them.</p>
+      <p><b>Updates to the app.</b> The app can receive small updates of its own code without a new App Store release. To do that it asks Expo&rsquo;s update service (EAS Update) on launch whether there is a newer one. That request carries the app&rsquo;s version and update identifiers, the phone&rsquo;s platform, and the address you are connecting from, as any download does, and nothing about you, your computer or what you do with the app. Expo&rsquo;s handling of it is described in its own privacy policy.</p>
+      <p><b>What it does not do.</b> It does not use advertising or analytics tools, does not track you across apps or websites, does not contain any third-party software that collects data for us, and does not read your contacts, location or health data. It uses the microphone only for the voice assistant, as above. The demo mode on the first screen sends nothing anywhere.</p>
+
+      <h2 id="assistant">The voice assistant</h2>
+      <p>The Ask tab lets you tell your computer what to do by voice. It is the one part of LazyMouse that talks to a service outside your network, and it is <b>off until you enter your own OpenAI API key</b>. It runs on your OpenAI account and uses your credit. We provide no key, have no account with OpenAI for you, and receive none of what follows.</p>
+      <p><b>What goes to OpenAI, and when.</b> Only while a conversation is open, and straight from your phone to OpenAI:</p>
+      <ul>
+        <li><b>What you say</b>, as sound, and the text OpenAI makes of it, and what the assistant says back.</li>
+        <li><b>Pictures of your computer&rsquo;s screen</b>, when you ask it to look, explain, point, click or do something that needs seeing. A picture shows whatever is on that screen at the time, which can include other people&rsquo;s messages, documents or passwords you have open. Close or hide anything you do not want it to see before you ask.</li>
+        <li><b>Text from your computer</b> that it needs to do the task: the titles of your open windows, the names of buttons and fields in a window, and the result of a command it ran after you approved it.</li>
+        <li>What you ask it to type or search for, as part of the request.</li>
+      </ul>
+      <p><b>What it does on your computer.</b> It can open websites, switch windows, type, press keys, click, scroll and change the volume. A command, and any click on something named like delete, send, post, buy or pay, is shown to you first and runs only if you say yes. No answer within a minute counts as no.</p>
+      <p><b>What happens to it at OpenAI.</b> We ask OpenAI not to store the screen pictures and requests we send (the <code>store: false</code> setting). OpenAI may still keep API data for a limited time to detect abuse, under its own terms and privacy policy, which apply to everything you send it. We do not control that. Nothing from your conversations is sent to us, and nothing is kept in the app after you end one beyond what is shown on the screen while it is open.</p>
+      <p><b>Your key.</b> It is typed once on the phone and kept in the iPhone Keychain, on this phone only and not in backups. It is never put in the app, never sent to the computer, never logged, and goes only to OpenAI. Remove it in the Ask tab&rsquo;s settings and the assistant stops working.</p>
+      <p>If you do not use the assistant, none of this applies and the app behaves as described in the rest of this page.</p>
 
       <h2 id="computer">The computer app</h2>
       <ul>
@@ -77,14 +94,17 @@
       <h2 id="others">Other services involved</h2>
       <ul>
         <li><b>Apple.</b> The iPhone app is distributed through the App Store and may be tested through TestFlight. Apple handles your Apple ID, purchases and downloads under its own privacy policy. If you have turned on &ldquo;Share With App Developers&rdquo; in your iPhone&rsquo;s analytics settings, Apple may give us anonymous, aggregated crash and usage figures through App Store Connect. They do not identify you, and we do not use them to try to.</li>
+        <li><b>OpenAI</b>, only if you use the voice assistant, as described in <a href="#assistant">The voice assistant</a>. Its handling of what you send is under its own terms and privacy policy.</li>
+        <li><b>Expo</b> (EAS Update), for the phone app&rsquo;s update check, as described above.</li>
         <li><b>GitHub</b>, for the update check and the computer app download, as described above.</li>
         <li><b>Google Fonts</b>, for this website, as described above.</li>
       </ul>
-      <p>We do not sell, rent or share information about you with anyone, and we do not receive any to share.</p>
+      <p>We do not sell, rent or share information about you with anyone, and we do not receive any to share. What you choose to send to OpenAI through the assistant goes from your phone to OpenAI directly, not through us.</p>
 
       <h2 id="keep">What is kept, and removing it</h2>
       <ul>
-        <li><b>On your phone:</b> forget the computer in the app (or delete the app) and the pairing, the identifier and the secret are gone.</li>
+        <li><b>On your phone:</b> forget the computer in the app (or delete the app) and the pairing, the identifier and the secret are gone. Remove your OpenAI key in the Ask tab&rsquo;s settings (or delete the app) and it is gone too.</li>
+        <li><b>At OpenAI:</b> to ask about, or have removed, what you sent through the assistant, contact OpenAI, which holds it under your account and its own policy.</li>
         <li><b>On your computer:</b> press <b>Forget</b> in the computer app to remove the remembered phone, and uninstall the app to remove its settings. Files you received stay in your Downloads folder until you delete them.</li>
         <li><b>Held by us:</b> nothing, so there is nothing to delete.</li>
       </ul>
