@@ -1,0 +1,117 @@
+/* The wishlist page. Same paper, nav, type and orange button as the home page; the app's
+   orange / peach / lilac glow at the top; the title, then one white sheet whose questions
+   appear one after another as they are answered. */
+
+.wl-page{background:var(--bg);min-height:100vh;display:flex;flex-direction:column;isolation:isolate}
+.wl-page::before{content:'';position:absolute;z-index:-1;left:0;right:0;top:0;height:620px;pointer-events:none;
+  background:radial-gradient(ellipse 45% 70% at 8% 0,#ffb48a 0,transparent 70%),radial-gradient(ellipse 40% 65% at 92% 4%,#cfc8f0 0,transparent 70%),radial-gradient(ellipse 50% 60% at 55% -10%,#ffd9bd 0,transparent 70%);
+  -webkit-mask-image:linear-gradient(#000 30%,transparent);mask-image:linear-gradient(#000 30%,transparent);opacity:.75}
+
+/* nav: the brand, and the way back */
+.wl-strip{display:flex!important;justify-content:space-between;width:min(1040px,calc(100% - 2 * var(--gutter)))}
+.wl-back{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 15px 0 11px;border-radius:999px;text-decoration:none;font-size:15px;color:#4b4b46}
+.wl-back:hover{background:rgb(14 15 12/.06);color:var(--ink)}
+.wl-back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* one column: the title over the sheet */
+.wl{flex:1;width:min(640px,calc(100% - 2 * var(--gutter)));margin:0 auto;padding:clamp(48px,7vw,84px) 0 clamp(56px,8vw,96px);display:grid;gap:clamp(28px,4vw,40px);align-content:start}
+.wl-title{font:400 clamp(2.4rem,5.2vw,3.9rem)/1.04 var(--sans);letter-spacing:-.035em;color:var(--ink);text-align:center}
+.wl-title em{font-family:var(--serif);letter-spacing:-.02em;color:#72736c}
+
+/* the sheet */
+.wl-card{background:#fff;border-radius:24px;padding:clamp(22px,3.4vw,40px);box-shadow:0 1px 0 rgb(255 255 255/.9) inset,0 26px 56px -30px rgb(20 20 10/.32),0 2px 6px rgb(0 0 0/.04);border:1px solid rgb(14 15 12/.06)}
+.wl-form{display:grid;gap:30px}
+.wl-q{border:0;margin:0;padding:0;min-width:0;display:grid;gap:14px}
+.wl [hidden]{display:none!important}
+.wl-q legend{float:left;width:100%;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;padding:0;margin:0 0 6px;font:500 clamp(1.35rem,2.6vw,1.6rem)/1.25 var(--sans);letter-spacing:-.02em;color:var(--ink);letter-spacing:-.01em}
+.wl-q legend small{white-space:nowrap;font:500 13px var(--sans);color:var(--faint);letter-spacing:0}
+
+/* the questions: one at a time; the answered one slides away left, the next slides in from the
+   right (the other way when going back), and the sheet eases to the new question's height */
+.wl-steps{position:relative}
+.wl-q{min-height:0}
+
+/* progress: a line the ghost walks along, a dot for each question, the last one the goal */
+.wl-progress{display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:14px;margin-bottom:clamp(26px,3.6vw,36px)}
+.wl-prev{display:grid;place-items:center;width:32px;height:32px;padding:0;border:0;border-radius:50%;background:#f3f3ef;color:#4b4b46;cursor:pointer;transition:background .15s}
+.wl-prev:hover{background:#e9e9e3;color:var(--ink)}
+.wl-prev svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.wl-progress .wl-prev[hidden]{display:block!important;visibility:hidden}
+.wl-track{--p:0;position:relative;height:50px;margin:0 8px}
+.wl-rail,.wl-fill{position:absolute;left:0;bottom:7px;height:3px;border-radius:3px}
+.wl-rail{right:0;background:repeating-linear-gradient(90deg,#deded7 0 6px,transparent 6px 11px)}
+.wl-fill{width:calc(var(--p) * 100%);background:linear-gradient(90deg,#ffb48a,#f26120);transition:width .7s var(--ease)}
+.wl-dot{position:absolute;left:calc(var(--at) * 100%);bottom:4px;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 2px #d6d6ce;transition:box-shadow .3s}
+.wl-dot.on{box-shadow:inset 0 0 0 5px #f26120}
+.wl-goal{width:13px;height:13px;margin-left:-6.5px;bottom:2px;box-shadow:inset 0 0 0 2px #d6d6ce,0 0 0 3px #fff1e9}
+.wl-goal.on{box-shadow:inset 0 0 0 7px #f26120,0 0 0 4px rgb(255 128 66/.26)}
+.wl-walker{position:absolute;left:calc(var(--p) * 100%);bottom:13px;width:27px;height:34px;margin-left:-13.5px;transition:left .7s var(--ease)}
+.wl-walker svg{display:block;width:100%;height:100%;overflow:visible;transform-origin:50% 100%;animation:wl-idle 3.2s ease-in-out infinite}
+.wl-walker .g-eyes{transition:transform .3s var(--ease)}
+.wl-track.walking .wl-walker svg{animation:wl-step .23s ease-in-out 3 alternate}
+.wl-track.cheer .wl-walker svg{animation:wl-hop .5s var(--ease) 2}
+@keyframes wl-idle{50%{transform:translateY(-2px)}}
+@keyframes wl-step{from{transform:translateY(0) rotate(-5deg)}to{transform:translateY(-5px) rotate(5deg)}}
+@keyframes wl-hop{40%{transform:translateY(-10px) scaleY(1.05)}70%{transform:translateY(0) scaleY(.94)}}
+.wl-count{min-width:42px;text-align:right;font:600 13px/1 "Quicksand Variable",Quicksand,var(--sans);color:var(--faint);font-variant-numeric:tabular-nums}
+
+/* text fields */
+.wl-row{display:grid;grid-template-columns:1.3fr 1fr;gap:12px}
+.wl-field{display:grid;gap:7px;font-size:13.5px;font-weight:500;color:#4f504b}
+.wl-field small{font-weight:400;color:var(--faint)}
+.wl-field input{width:100%;font:400 16px/1.4 var(--sans);color:var(--ink);background:#fafaf8;border:1px solid #e1e1da;border-radius:14px;padding:12px 14px;transition:border-color .15s,box-shadow .15s,background .15s}
+.wl-field input::placeholder{color:#a3a39d}
+.wl-field input:hover{border-color:#cfcfc7}
+.wl-field input:focus{outline:none;background:#fff;border-color:#f08a55;box-shadow:0 0 0 4px rgb(251 106 34/.14)}
+.wl-field input[aria-invalid=true]{border-color:#c2410c;background:#fff8f4}
+
+/* the first question's way on: a quiet ink pill, so the orange stays the final step's */
+.wl-next{justify-self:start;margin-top:10px;display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px 0 18px;border:0;border-radius:999px;background:#252722;color:#fff;font:600 14.5px/1 var(--sans);cursor:pointer;transition:background .15s,transform .12s}
+.wl-next:hover{background:#3a3c36}
+.wl-next:active{transform:scale(.97)}
+.wl-q[data-step]:not([data-step=email]):not(.answered) .wl-next{display:none}
+.wl-next svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+/* choices: pills, the selected one in ink, as the research tabs */
+.wl-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;cursor:pointer}
+.chip input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.chip span{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 16px;border-radius:999px;background:#fff;border:1px solid #dcdcd5;font:500 14.5px/1.2 var(--sans);color:#3d3e39;transition:background .15s,border-color .15s,color .15s,transform .12s}
+.chip span small{font-size:12px;color:var(--faint)}
+.chip:hover span{border-color:#bdbdb4;background:#fafaf8}
+.chip input:checked+span{background:#252722;border-color:#252722;color:#fff}
+.chip input:checked+span small{color:#c9c9c2}
+.chip input:checked+span::before{content:'';width:12px;height:12px;margin-left:-3px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3 5 8.7l4.5-5' fill='none' stroke='%23ff9b62' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:3px}
+.chip:active span{transform:scale(.97)}
+
+.wl-err{margin:-4px 0 0;font-size:13.5px;color:#b4400d}
+.wl-trap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* send: the button is the nav's "Try it?" (light.css), at the notch's 46px */
+.wl-send{display:flex;align-items:center;flex-wrap:wrap;gap:12px 18px;margin-top:10px;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .35s var(--ease),transform .35s var(--ease),visibility 0s .35s}
+.wl-q.answered .wl-send{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.wl-submit{cursor:pointer}
+.wl-submit[disabled]{cursor:progress;filter:saturate(.7)}
+.wl-submit .wl-spin{width:16px;height:16px;border-radius:50%;border:2px solid rgb(255 255 255/.4);border-top-color:#fff;animation:wl-spin .8s linear infinite}
+@keyframes wl-spin{to{transform:rotate(1turn)}}
+.wl-fine{font-size:13.5px;color:var(--faint)}
+.wl-status{margin:0;padding:12px 14px;border-radius:12px;background:#fff4ee;color:#8f340b;font-size:14.5px;line-height:1.5}
+.wl-status a{color:inherit;text-underline-offset:3px}
+
+/* done */
+.wl-done{display:grid;justify-items:center;text-align:center;gap:14px;padding:40px 8px 28px}
+.wl-done:focus{outline:none}
+.wl-done h2{font:400 clamp(1.9rem,3.4vw,2.6rem)/1.1 var(--sans);letter-spacing:-.03em}
+.wl-done p{max-width:36ch;color:#5c5d58;font-size:16px;line-height:1.55}
+.wl-home{margin-top:10px}
+
+@media(max-width:560px){
+  .wl-row{grid-template-columns:1fr}
+  .wl-card{border-radius:20px;padding:22px 18px}
+  .wl-progress{gap:8px}
+  .chip span{font-size:14px;padding:0 14px}
+  .wl-send{flex-direction:column;align-items:stretch;text-align:center}
+  .wl-strip .brand span{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){.wl-walker,.wl-fill{transition:none}.wl-walker svg,.wl-track.walking .wl-walker svg,.wl-track.cheer .wl-walker svg{animation:none}.chip span,.wl-field input,.wl-next{transition:none}}

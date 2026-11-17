@@ -1,0 +1,145 @@
+/* The desktop notch. GENERATED from desktop/src/notch.css by copying its rules and writing `#notch`
+   as `.lmn` (and the app's body classes as classes on the notch itself). Do not restyle it here:
+   change the app, then regenerate. What follows the copy is only how the page places and scales it. */
+.lmn{
+ --accent:#ff5a1f;--accent-ink:#c2410c;--on-accent:#fff;
+ --ink:#1c1c22;--secondary:#565762;--quiet:#6e707b;
+ --pill:#f1f1f6;--pill-hover:#e7e7ef;--pill-press:#dcdce7;--line:#e2e2ea;
+ --ok:#127a55;
+ --sans:"Quicksand Variable",Quicksand,"Segoe UI",system-ui,sans-serif;
+ --ease:cubic-bezier(.22,1,.36,1);
+ position:absolute;left:0;top:0;width:368px;height:260px;isolation:isolate;user-select:none;
+ color:var(--ink);font:500 12px/1.35 var(--sans);
+ -webkit-font-smoothing:antialiased;
+}
+.lmn,.lmn *{box-sizing:border-box}
+.lmn{will-change:transform}
+.lmn button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .16s var(--ease),border-color .16s var(--ease),color .16s var(--ease)}
+.lmn svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.lmn .notch-brand-icon{display:grid;place-items:center;flex:none;color:var(--accent)}
+.lmn .notch-brand-icon svg{stroke:none;width:20px;height:25px}
+.lmn .notch-brand-icon svg>rect{fill:#fb6a22}
+
+/* Closed: black hardware at the screen edge. */
+.lmn .notch-handle{
+ position:absolute;left:var(--trigger-x,116px);top:var(--trigger-y,0px);
+ width:var(--trigger-w,136px);height:var(--trigger-h,32px);z-index:2;
+ display:flex;align-items:center;justify-content:center;gap:12px;
+ background:#000;border:0;border-radius:0;clip-path:var(--handle-shape);
+ opacity:var(--handle-opacity,1);touch-action:none;cursor:grab;transition:none;
+}
+.lmn .notch-handle .notch-brand-icon,.notch-handle i{display:none}
+.lmn .notch-emblem{position:absolute;z-index:4;pointer-events:none;opacity:var(--home-fade,1);left:var(--ghost-x,184px);top:var(--ghost-y,16px);transform:translate(-50%,-50%);height:var(--ghost-size,20px);width:calc(var(--ghost-size,20px)*.8)}
+.lmn .notch-emblem svg{width:100%;height:100%}
+.lmn.is-open .notch-handle{pointer-events:none}
+
+/* Open: it leaves the notch black and turns to paper as it grows. */
+.lmn .notch-card{
+ display:none;position:absolute;inset:0;z-index:1;
+ background:color-mix(in oklab,#fff calc(var(--notch-content,1)*100%),#000);
+ clip-path:var(--notch-shape);padding:17px 22px 11px;
+ flex-direction:column;overflow:hidden;
+}
+.lmn .notch-card:before{
+ content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:var(--notch-content,1);
+ background:
+  radial-gradient(58% 50% at 4% -6%,rgb(255 128 66/.62),transparent 72%),
+  radial-gradient(52% 46% at 98% -8%,rgb(178 156 255/.55),transparent 74%),
+  radial-gradient(60% 34% at 52% -12%,rgb(255 205 150/.5),transparent 75%);
+}
+.lmn.present .notch-card{display:flex}
+.notch-card>*{position:relative;z-index:1;opacity:calc(var(--notch-content,1)*var(--home-fade,1))}
+.lmn .notch-rim{display:none;position:absolute;inset:0;z-index:3;width:100%;height:100%;overflow:visible;pointer-events:none;stroke:rgb(24 24 40/.2);stroke-width:1.2;opacity:var(--notch-content,1)}
+.lmn.present .notch-rim{display:block}
+
+.notch-head{display:flex;align-items:center;gap:8px;min-height:28px;flex:none;touch-action:none;cursor:grab}
+.notch-head strong{font-size:15px;font-weight:700;letter-spacing:-.2px;padding-bottom:1px}
+.lmn .notch-head .notch-brand-icon svg{width:17px;height:22px;visibility:hidden}
+.lmn .notch-pin,.lmn .notch-settings{
+ display:grid;place-items:center;width:28px;height:28px;padding:0;
+ border:0;border-radius:50%;background:transparent;color:var(--secondary);
+}
+.lmn .notch-pin{margin-left:auto;margin-right:-5px}
+.lmn .notch-pin:hover,.lmn .notch-settings:hover{background:rgb(28 28 34/.08);color:var(--ink)}
+.lmn .notch-pin:active,.lmn .notch-settings:active{background:rgb(28 28 34/.14)}
+.lmn .notch-pin[aria-pressed=true]{color:var(--accent-ink);background:rgb(255 90 31/.14)}
+.lmn .notch-pin[aria-pressed=true] svg{fill:currentColor;fill-opacity:.25}
+
+/* Talk: one glossy button, lit from inside, with a soft halo. */
+.lmn .notch-voice{
+ --talk-light:#ff8748;--talk:#f26120;--talk-deep:#d9480f;
+ position:relative;display:flex;align-items:center;justify-content:center;gap:9px;flex:none;
+ width:100%;height:46px;margin-top:13px;padding:0 16px;
+ border:0;border-radius:13px;color:#fff;
+ background:radial-gradient(90% 150% at 50% 38%,var(--talk-light) 0%,var(--talk) 52%,var(--talk-deep) 100%);
+ box-shadow:
+  inset 0 0 0 1px rgb(255 255 255/.16),
+  inset 0 7px 9px -7px rgb(255 255 255/.5),
+  inset 0 -8px 10px -6px rgb(160 44 0/.55),
+  0 0 0 3px rgb(255 128 66/.26),
+  0 9px 18px -8px rgb(242 97 32/.7);
+ transition:transform .16s var(--ease),box-shadow .16s var(--ease),filter .16s var(--ease);
+ touch-action:none;
+}
+.lmn .notch-voice:hover{filter:brightness(1.06) saturate(1.05);box-shadow:inset 0 0 0 1px rgb(255 255 255/.2),inset 0 7px 9px -7px rgb(255 255 255/.55),inset 0 -8px 10px -6px rgb(160 44 0/.55),0 0 0 4px rgb(255 128 66/.3),0 10px 20px -8px rgb(242 97 32/.75)}
+.lmn .notch-voice:active,.lmn.listening .notch-voice{
+ transform:scale(.985);filter:none;
+ background:radial-gradient(90% 150% at 50% 55%,var(--talk) 0%,var(--talk-deep) 70%,#c23f0c 100%);
+ box-shadow:inset 0 0 0 1px rgb(255 255 255/.12),inset 0 5px 10px -4px rgb(130 34 0/.6),0 0 0 4px rgb(255 128 66/.34);
+}
+.notch-orb{display:grid;place-items:center;flex:none}
+.lmn .notch-orb svg{width:19px;height:19px;stroke-width:1.9;filter:drop-shadow(0 1px 1px rgb(140 38 0/.45))}
+.notch-voice-label{font-size:15.5px;font-weight:700;letter-spacing:-.1px;text-shadow:0 1px 1px rgb(140 38 0/.45)}
+.notch-wave{display:none;align-items:center;gap:3px;height:15px;margin-left:2px}
+.notch-wave i{width:3px;height:100%;border-radius:2px;background:#fff;transform:scaleY(.25);animation:notch-wave .9s ease-in-out infinite}
+.notch-wave i:nth-child(2){animation-delay:-.72s}.notch-wave i:nth-child(3){animation-delay:-.31s}.notch-wave i:nth-child(4){animation-delay:-.55s}
+.notch-wave i:nth-child(5){animation-delay:-.12s}
+@keyframes notch-wave{50%{transform:scaleY(1)}}
+.listening .notch-wave{display:flex}
+.notch-voice-hint{display:flex;align-items:center;justify-content:center;gap:4px;flex:none;margin:10px 0 0;font-size:11.5px;font-weight:500;color:var(--secondary)}
+.notch-voice-hint kbd{font:600 10.5px/1 var(--sans);border:1px solid #d6d6e0;border-bottom-width:2px;border-radius:6px;padding:3px 5px;color:var(--ink);background:#fff}
+
+/* Places: soft pills. */
+.notch-utilities{display:flex;align-items:center;gap:6px;flex:none;margin-top:13px}
+.lmn .notch-utilities button{
+ display:flex;flex:1;align-items:center;justify-content:center;gap:5px;min-width:0;height:32px;padding:0 4px;
+ border:0;border-radius:16px;background:var(--pill);color:var(--ink);font-size:12px;font-weight:600;
+}
+.lmn .notch-utilities svg{width:15px;height:15px;color:var(--secondary)}
+.lmn .notch-utilities button:hover{background:var(--pill-hover)}
+.lmn .notch-utilities button:active{background:var(--pill-press)}
+.notch-sep{display:none}
+.notch-utilities .active-job:after{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+/* The latest note. */
+.notch-notes{flex:none;height:32px;overflow:hidden;margin:5px -8px 0}
+.lmn .notch-note{display:flex;align-items:center;gap:8px;width:100%;height:32px;min-width:0;padding:0 8px 0 10px;text-align:left;border:0;border-radius:16px;background:transparent;color:var(--ink)}
+.lmn .notch-note:hover{background:var(--pill)}
+.lmn .notch-note:active{background:var(--pill-hover)}
+.notch-note>span:nth-child(2){display:flex;align-items:baseline;gap:8px;flex:1;min-width:0}
+.notch-note strong{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px;font-weight:600}
+.notch-note small{flex:none;font-size:11.5px;font-weight:500;color:var(--quiet)}
+.notch-note-icon{display:grid;place-items:center;flex:none;color:var(--secondary)}
+.notch-arrow{display:grid;place-items:center;flex:none;color:var(--quiet)}
+.lmn .notch-arrow svg{width:13px;height:13px}
+.notch-empty strong{color:var(--secondary)}
+
+.notch-device{display:flex;align-items:center;gap:7px;flex:none;margin-top:auto;color:var(--quiet);font-size:11.5px;font-weight:500;min-height:20px}
+.notch-device i{flex:none;width:7px;height:7px;border-radius:50%;border:1.5px solid var(--quiet)}
+.connected .notch-device i{border:0;background:#22b07d}
+.notch-device-name{max-width:180px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;color:var(--secondary)}
+.notch-device-state{margin-left:auto;white-space:nowrap}
+.connected .notch-device-state{color:var(--ok);font-weight:600}
+.notch-error{flex:none;color:#b42318;font-size:11.5px;line-height:1.3;max-height:28px;overflow:auto;margin:4px 0 0}
+.lmn button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.lmn .notch-voice:focus-visible{outline-offset:-2px;border-radius:12px}
+.notch-dragging .notch-head,.notch-dragging .notch-handle{cursor:grabbing!important}
+@media(prefers-reduced-motion:reduce){.notch-wave i{animation:none;transform:scaleY(.6)}.notch-wave i:nth-child(odd){transform:scaleY(.35)}.lmn button{transition:none}.lmn .notch-voice:active,.lmn.listening .notch-voice{transform:none}}
+@media(prefers-contrast:more){.lmn{--quiet:#3f404a;--secondary:#2c2d36;--line:#8b8c99}.lmn .notch-card:before{display:none}.lmn .notch-rim{stroke:#1c1c22}.lmn .notch-utilities button{box-shadow:inset 0 0 0 1px #8b8c99}}
+
+/* ---- placing it on a drawn screen (the page's part) ---- */
+.lmn{left:50%;margin-left:-184px;transform-origin:50% 0;transform:scale(var(--ns,1));pointer-events:none;text-align:left;letter-spacing:0}
+.lmn .notch-handle{pointer-events:auto}
+.lmn.is-open .notch-card{pointer-events:auto}
+.lmn p{margin:0}
+.lmn .notch-voice-hint{margin:10px 0 0}
