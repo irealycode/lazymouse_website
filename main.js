@@ -104,7 +104,6 @@
     new ResizeObserver(paint).observe(el);
   }
   drawRulers($("#rulers"));
-  drawRulers($("#grulers"));
 
   // ---- the rig --------------------------------------------------------------
   //
@@ -333,199 +332,6 @@
   whenVisible($("#rig"), (v) => { rig.visible = v; runRig(); });
   document.addEventListener("visibilitychange", runRig);
   reduced.addEventListener("change", runRig);
-
-  // ---- gestures --------------------------------------------------------------
-
-  const gpad = $("#gpad"), gf1 = $("#gf1"), gf2 = $("#gf2"), glog = $("#glog");
-  const gTitle = $("#gTitle"), gBody = $("#gBody");
-
-  const ts = (t, dur) => 4821 + Math.round(t * dur);
-  const moves = (from, to, n, dur) =>
-    Array.from({ length: n }, (_, i) => {
-      const at = from + ((to - from) * (i + 0.5)) / n;
-      return { at, msg: `{"t":"mouse_move","dx":${6 - (i % 3)},"dy":${-2 + (i % 4)},"ts":${ts(at, dur)}}` };
-    });
-  const lerp = (a, b, k) => a + (b - a) * clamp(k, 0, 1);
-  const seg = (t, a, b) => clamp((t - a) / (b - a), 0, 1);
-
-  const GESTURES = {
-    move: {
-      title: "Drag one finger",
-      body: "The cursor follows. Moving never holds the button down, so a long, slow move cannot select everything it passes over.",
-      dur: 3000, still: 0.5,
-      at: (t) => ({ f: [{ x: lerp(0.18, 0.8, seg(t, 0.08, 0.9)), y: 0.62 - 0.26 * Math.sin(seg(t, 0.08, 0.9) * Math.PI) }], held: false }),
-      events: moves(0.1, 0.9, 7, 3000),
-    },
-    tap: {
-      title: "Tap",
-      body: "A short touch that barely moves is a left click. The pad flushes any pending movement first, so a click can never land short of where you pointed.",
-      dur: 2200, still: 0.3,
-      at: (t) => ({ f: t > 0.25 && t < 0.36 ? [{ x: 0.5, y: 0.5 }] : [], held: false }),
-      events: [{ at: 0.36, msg: '{"t":"mouse_click","button":"left"}' }],
-    },
-    right: {
-      title: "Two-finger tap",
-      body: "Two fingers down and up together is a right click.",
-      dur: 2200, still: 0.3,
-      at: (t) => ({ f: t > 0.25 && t < 0.36 ? [{ x: 0.4, y: 0.52 }, { x: 0.6, y: 0.46 }] : [], held: false }),
-      events: [{ at: 0.36, msg: '{"t":"mouse_click","button":"right"}' }],
-    },
-    scroll: {
-      title: "Two-finger drag",
-      body: "Both fingers move together and the page scrolls. Positive dy scrolls down.",
-      dur: 2800, still: 0.5,
-      at: (t) => {
-        const k = seg(t, 0.15, 0.85);
-        return { f: t > 0.1 && t < 0.9 ? [{ x: 0.4, y: lerp(0.28, 0.72, k) }, { x: 0.6, y: lerp(0.28, 0.72, k) }] : [], held: false };
-      },
-      events: Array.from({ length: 6 }, (_, i) => ({ at: 0.2 + i * 0.12, msg: '{"t":"scroll","dx":0,"dy":3}' })),
-    },
-    hold: {
-      title: "Hold, then drag",
-      body: "Hold a finger still for 300 ms and the button goes down where the cursor already is. Lifting releases it. A double tap, then a drag, does the same. A move that has already travelled can never turn into a hold.",
-      dur: 3600, still: 0.55,
-      at: (t) => {
-        const down = t > 0.08 && t < 0.86;
-        const k = seg(t, 0.32, 0.78);
-        return { f: down ? [{ x: lerp(0.3, 0.74, k), y: lerp(0.62, 0.4, k) }] : [], held: t > 0.2 && t < 0.86 };
-      },
-      events: [
-        { at: 0.2, msg: '{"t":"mouse_down","button":"left"}' },
-        ...moves(0.34, 0.76, 4, 3600),
-        { at: 0.86, msg: '{"t":"mouse_up","button":"left"}' },
-      ],
-    },
-  };
-
-  let gKey = "move", gStart = performance.now(), gLast = 0, gVisible = true, gRaf = 0;
-  let logLines = [];
-
-  function renderLog(newest) {
-    glog.innerHTML = logLines
-      .slice(-4)
-      .map((l, i, a) => `<span class="row ${l === newest ? "new" : i < a.length - 1 ? "old" : ""}">${l.replace(/</g, "&lt;")}</span>`)
-      .join("");
-  }
-
-  function renderGesture(t, fireFrom = null) {
-    const g = GESTURES[gKey];
-    const s = g.at(t);
-    [gf1, gf2].forEach((el, i) => {
-      const p = s.f[i];
-      if (!p) { el.style.opacity = "0"; return; }
-      el.style.opacity = "1";
-      el.style.transform = `translate(${p.x * gpad.clientWidth}px, ${p.y * gpad.clientHeight}px)`;
-    });
-    gpad.classList.toggle("held", s.held);
-    gpad.classList.toggle("down", s.f.length > 0);
-    if (fireFrom !== null) {
-      let newest = null;
-      for (const e of g.events) if (e.at > fireFrom && e.at <= t) { logLines.push(e.msg); newest = e.msg; }
-      if (newest) renderLog(newest);
-    }
-  }
-
-  let gCycle = 0;
-  function gTick() {
-    const g = GESTURES[gKey];
-    const elapsed = Math.max(0, performance.now() - gStart);
-    const cycle = Math.floor(elapsed / g.dur);
-    const t = (elapsed % g.dur) / g.dur;
-    if (cycle !== gCycle) { gCycle = cycle; logLines = []; renderLog(null); gLast = 0; }
-    renderGesture(t, gLast);
-    gLast = t;
-    gRaf = requestAnimationFrame(gTick);
-  }
-
-  function selectGesture(key) {
-    gKey = key;
-    const g = GESTURES[key];
-    gTitle.textContent = g.title;
-    gBody.textContent = g.body;
-    if (!reduced.matches) [gTitle, gBody].forEach((el, i) => el.animate([{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 380, delay: i * 50, easing: ease, fill: "backwards" }));
-    logLines = []; gLast = 0; gCycle = 0; gStart = performance.now();
-    $$(".tabs button").forEach((b) => {
-      const on = b.dataset.g === key;
-      b.setAttribute("aria-selected", String(on));
-      b.tabIndex = on ? 0 : -1;
-    });
-    $("#p-gest").setAttribute("aria-labelledby", `t-${key}`);
-    if (still()) stillGesture();
-    else { glog.innerHTML = ""; }
-  }
-
-  // Reduced motion: the frame where the gesture is happening, with every message
-  // it has sent so far -- the information, without the loop.
-  function stillGesture() {
-    const g = GESTURES[gKey];
-    logLines = g.events.filter((e) => e.at <= g.still).map((e) => e.msg);
-    renderGesture(g.still, null);
-    renderLog(null);
-  }
-
-  function runGestures() {
-    cancelAnimationFrame(gRaf);
-    if (still()) return stillGesture();
-    if (gVisible && !document.hidden) { gStart = performance.now() - gLast * GESTURES[gKey].dur; gCycle = 0; gRaf = requestAnimationFrame(gTick); }
-  }
-  whenVisible($(".gest"), (v) => { gVisible = v; runGestures(); });
-  document.addEventListener("visibilitychange", runGestures);
-  reduced.addEventListener("change", runGestures);
-
-  const tabs = $$(".tabs button");
-  tabs.forEach((b, i) => {
-    b.addEventListener("click", () => { selectGesture(b.dataset.g); runGestures(); });
-    b.addEventListener("keydown", (e) => {
-      const n = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
-      let j = n ? (i + n + tabs.length) % tabs.length : e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : -1;
-      if (j < 0) return;
-      e.preventDefault();
-      tabs[j].focus(); selectGesture(tabs[j].dataset.g); runGestures();
-    });
-  });
-  selectGesture("move");
-
-  const pauseBtn = $("#pause");
-  pauseBtn.addEventListener("click", () => {
-    paused = !paused;
-    pauseBtn.setAttribute("aria-pressed", String(paused));
-    pauseBtn.textContent = paused ? "Resume motion" : "Pause motion";
-    runRig(); runGestures();
-  });
-
-  // ---- pairing: the line fills as the steps are reached ------------------------
-
-  const steps = $("#steps"), stepItems = $$("li", steps);
-  let ticking = false;
-  function pairProgress() {
-    ticking = false;
-    const r = steps.getBoundingClientRect(), vh = innerHeight, line = vh * 0.62;
-    steps.style.setProperty("--p", clamp((line - r.top) / r.height, 0, 1).toFixed(3));
-    stepItems.forEach((li) => li.classList.toggle("reached", li.getBoundingClientRect().top < line));
-  }
-  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(pairProgress); } }, { passive: true });
-  addEventListener("resize", pairProgress);
-  pairProgress();
-
-  // ---- the bars --------------------------------------------------------------
-
-  const bars = $("#bars");
-  whenVisible(bars, (v) => {
-    if (!v || bars.dataset.done || reduced.matches) return;
-    bars.dataset.done = "1";
-    $$(".track i", bars).forEach((bar, i) =>
-      bar.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], { duration: 900, delay: 120 + i * 140, easing: ease, fill: "backwards" }),
-    );
-    $$("[data-count]", bars).forEach((el, i) => {
-      const to = parseFloat(el.dataset.count), start = performance.now() + 120 + (i + 1) * 140;
-      const step = (now) => {
-        const k = clamp((now - start) / 900, 0, 1);
-        el.textContent = (to * (1 - Math.pow(1 - k, 4))).toFixed(1);
-        if (k < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    });
-  });
 
   // ---- modifiers: off, armed, held ---------------------------------------------
 
@@ -982,48 +788,8 @@
     wave($("#wf1"), 7, (u) => { const g = Math.max(0, Math.sin(u * 22) * Math.sin(u * 5.3 + 1)); return 0.18 + 0.82 * g * g; });
     wave($("#wf2"), 19, (u) => 0.28 + 0.5 * Math.abs(Math.sin(u * 9)) + 0.18 * Math.sin(u * 31) ** 2);
 
-    // ----- the phone (AssistantPanel.tsx) -----
-    for (const body of $$(".ph .gb")) body.setAttribute("d", GHOST.body);
-    for (const holder of $$(".ph .ge")) {
-      for (const eye of GHOST.attentive) make("path", { d: eye.d, transform: `matrix(${eye.m.join(" ")})` }, holder);
-    }
-    const phLog = $("#phLog"), phWord = $("#phWord"), phRuler = $("#phRuler"), phHush = $("#phHush"), phMute = $("#phMute");
-    const TICKS = 36, TICK_MAX = 26;
-    phRuler.innerHTML = "<i></i>".repeat(TICKS);
-    const ticks = [...phRuler.children];
-    let levels = new Array(TICKS).fill(0);
-    const drawLevels = () => levels.forEach((l, i) => { ticks[i].style.height = `${(2 + l * TICK_MAX).toFixed(1)}px`; });
-    drawLevels();
-    const WORDS = { listening: "Listening", thinking: "Thinking", speaking: "Speaking" };
-    let voice = "listening", beat = 0;
-    function setVoice(v) {
-      voice = v;
-      phWord.textContent = WORDS[v];
-      phHush.classList.toggle("hidden", v !== "speaking");
-    }
-    // The ruler rises with whoever is making sound: the voice while it speaks, the microphone while it listens.
-    // Speech sits low on the scale; the square root lifts it into view (the app does the same).
-    function pushLevel() {
-      beat++;
-      let level = 0;
-      if (voice === "speaking") {
-        const syl = Math.abs(Math.sin(beat * 0.93) * Math.cos(beat * 0.37));
-        level = (0.12 + 0.55 * syl) * (0.55 + 0.45 * Math.sin(beat * 0.21) ** 2);
-      } else if (voice === "listening") level = 0.004 + 0.006 * Math.abs(Math.sin(beat * 1.3));
-      levels = [...levels.slice(1), Math.min(1, Math.sqrt(level) * 1.4)];
-      drawLevels();
-    }
-
-    function row(html, cls) {
-      const d = document.createElement("div");
-      d.className = cls;
-      d.innerHTML = html;
-      phLog.append(d);
-      return d;
-    }
-    const rowYou = (text) => row(`<b>You</b><span class="faint">${text}</span>`, "ph-row-you");
-    const rowDid = (word, text, detail) => row(`<b>${word}</b><div><span>${text}</span>${detail ? `<em>${detail}</em>` : ""}</div>`, "ph-row-did");
-    const rowAsst = () => row('<b>Assistant</b><span></span>', "ph-row-asst");
+    // ----- the phone: its Ask tab as it is now (phone.js, from AssistantPanel.tsx) -----
+    const phone = window.LMPhone($("#ph"));
 
     // ----- the explanation: the app's own tour, one part at a time -----
     const boxOf = (el) => {
@@ -1039,25 +805,19 @@
 
     let run = 0;
     const wait = (ms, id) => new Promise((res) => setTimeout(() => res(id === run), still() ? 0 : ms));
-    let ticker = 0;
-    const startTicker = () => { if (!ticker && !still()) ticker = window.setInterval(pushLevel, 70); };
-    const stopTicker = () => { window.clearInterval(ticker); ticker = 0; };
 
     function reset() {
-      stopTicker();
-      phLog.textContent = "";
-      levels = new Array(TICKS).fill(0);
-      drawLevels();
-      setVoice("listening");
+      phone.clear();
       ghost.stop();
     }
 
-    async function speak(span, text, id) {
-      setVoice("speaking");
-      if (still()) { span.textContent = text; return id === run; }
+    // The reply is captioned as it is said, a word at a time; the ghost on the phone talks.
+    async function speak(text, id) {
+      phone.setVoice("speaking");
+      if (still()) { phone.reply(text); return id === run; }
       const words = text.split(" ");
       for (let i = 1; i <= words.length; i++) {
-        span.textContent = words.slice(0, i).join(" ");
+        phone.reply(words.slice(0, i).join(" "));
         const last = words[i - 1];
         if (!(await wait(250 + last.length * 22 + (/[.,]$/.test(last) ? 240 : 0), id))) return false;
       }
@@ -1068,44 +828,39 @@
       const id = ++run;
       reset();
       if (still()) {
-        // One still frame: everything said, the ghost standing on the last part.
-        rowYou("What am I looking at?").querySelector("span").classList.remove("faint");
-        rowDid("Did", "Explaining the screen", "3 parts on screen 1");
-        for (const stop of STOPS) { const r = rowAsst(); r.lastChild.textContent = stop.say; }
+        // One still frame: the last part said, the ghost standing on it.
+        phone.you("What am I looking at?");
+        phone.act("Did", "Explaining the screen");
+        phone.reply(STOPS[STOPS.length - 1].say);
         ghost.start();
         const last = STOPS[STOPS.length - 1];
         ghost.show(boxOf($(last.el)), last.label, last.frame, TOUR_HOLD_MS);
         settle(1800);
-        setVoice("listening");
+        phone.setVoice("listening");
         return;
       }
       ghost.start();
-      startTicker();
       wake();
-      if (!(await wait(900, id))) return;
-      // You speak, and what you said arrives a moment later.
-      const you = rowYou("…");
+      phone.setVoice("listening");
       if (!(await wait(1500, id))) return;
-      you.querySelector("span").textContent = "What am I looking at?";
-      you.querySelector("span").classList.remove("faint");
-      setVoice("thinking");
-      if (!(await wait(500, id))) return;
-      const did = rowDid("Doing", "Explaining the screen");
+      // What you said arrives a moment after you said it.
+      phone.you("What am I looking at?");
+      phone.setVoice("thinking");
+      phone.busy(true);
+      if (!(await wait(600, id))) return;
+      const did = phone.act("Doing", "Explaining the screen");
       if (!(await wait(2000, id))) return;
-      did.innerHTML = "<b>Did</b><div><span>Explaining the screen</span><em>3 parts on screen 1</em></div>";
-      if (!(await wait(300, id))) return;
+      did.set("Did", "Explaining the screen");
       for (const stop of STOPS) {
         // For each part: the ghost is sent there, and the voice says just that part.
         ghost.show(boxOf($(stop.el)), stop.label, stop.frame, TOUR_HOLD_MS);
-        const asst = rowAsst();
-        if (!(await speak(asst.lastChild, stop.say, id))) return;
-        setVoice("thinking");
+        if (!(await speak(stop.say, id))) return;
+        phone.setVoice("thinking");
         if (!(await wait(700, id))) return;
       }
       ghost.clear();
-      setVoice("listening");
-      await wait(2400, id);
-      if (id === run) stopTicker();
+      phone.busy(false);
+      phone.setVoice("listening");
     }
 
     $("#sceneReplay").addEventListener("click", () => { started = true; play(); });
@@ -1158,5 +913,7 @@
     a.rel = "noopener";
     $(".tag", a)?.remove();
     $(`[data-note="${a.dataset.dl}"]`)?.remove();
+    // Whatever only makes sense once this download exists (its install notes).
+    $$(`[data-when="${a.dataset.dl}"]`).forEach((el) => el.removeAttribute("hidden"));
   });
 })();

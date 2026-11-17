@@ -42,8 +42,9 @@ Each demo answers a question rather than decorating:
 ## Honest gaps
 
 - **Downloads.** The product is closed-source and free, distributed as a Windows
-  installer and an iPhone app from the App Store, so the site never shows code to
-  install. Put the two URLs in `config.js`; until then each button reads as
+  installer, a Linux AppImage and an iPhone app from the App Store, so the site never
+  shows code to install. Put the three URLs in `config.js` (setting `linux` also reveals
+  the Linux install notes); until then each button reads as
   "coming soon" instead of linking to nothing. iPhone only, by design.
 - The phone images are `react-native-web` renders of the app's own source, not
   device screenshots. Replace `assets/app-*.png` with real ones when available.

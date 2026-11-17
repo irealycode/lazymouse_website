@@ -3,57 +3,110 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LazyMouse — your phone is the trackpad</title>
-  <meta name="description" content="Turn your phone into a trackpad for the computer on the same Wi-Fi, and ask it out loud: a ghost points at what you mean. Pair once. No cloud, no account.">
-  <meta name="theme-color" content="#ecedee" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#16181b" media="(prefers-color-scheme: dark)">
-  <script>try{var t=new URLSearchParams(location.search).get("theme");if(t==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
+  <title>lazymouse — your phone is the trackpad</title>
+  <meta name="description" content="Your phone becomes the trackpad and keyboard for your computer, and a ghost that explains what is on your screen and can finish tasks for you.">
+  <meta name="theme-color" content="#f6f6f3">
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..600;1,8..60,300..600&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700&display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body id="top">
   <a class="skip" href="#main">Skip to content</a>
+  <template id="ghostTpl"><svg class="ghost-svg carry-ghost" viewBox="-86 -106 172 215" aria-hidden="true"><path class="g-body" d="M78.76 0.14C78.76 2.72 78.76 5.28 78.76 7.9C78.76 10.51 78.76 13.12 78.76 15.81C78.76 18.5 78.76 21.21 78.76 24.04C78.76 26.87 78.76 29.74 78.76 32.78C78.76 35.81 78.76 38.92 78.76 42.26C78.76 45.59 78.76 49.03 78.76 52.79C78.76 56.55 79.67 61.36 78.76 64.81C77.85 68.25 76.44 72.07 73.3 73.45C70.16 74.84 63.05 71.75 59.91 73.11C56.78 74.47 56.28 78.48 54.48 81.61C52.67 84.73 51.44 89.25 49.08 91.84C46.71 94.44 43.55 96.34 40.29 97.19C37.02 98.03 33.2 98.18 29.48 96.9C25.76 95.63 21.38 90.96 17.95 89.56C14.52 88.16 11.85 88.34 8.9 88.51C5.95 88.69 3.24 89.34 0.22 90.59C-2.79 91.84 -5.84 94.21 -9.19 96.01C-12.53 97.82 -16.39 100.74 -19.85 101.42C-23.32 102.11 -26.9 101.37 -30 100.12C-33.11 98.86 -35.91 96.26 -38.47 93.88C-41.04 91.49 -43.05 88.2 -45.4 85.79C-47.75 83.38 -49.17 80.24 -52.57 79.42C-55.97 78.6 -62.11 81.54 -65.8 80.86C-69.49 80.18 -72.66 78.03 -74.73 75.34C-76.8 72.65 -77.62 68.49 -78.22 64.73C-78.82 60.97 -78.3 56.53 -78.31 52.79C-78.33 49.04 -78.31 45.59 -78.31 42.26C-78.31 38.92 -78.31 35.81 -78.31 32.78C-78.31 29.74 -78.31 26.87 -78.31 24.04C-78.31 21.21 -78.31 18.5 -78.31 15.81C-78.31 13.12 -78.31 10.51 -78.31 7.9C-78.31 5.28 -78.31 2.72 -78.31 0.14C-78.31 -2.45 -78.35 -5.02 -78.31 -7.63C-78.26 -10.23 -78.21 -12.85 -78.04 -15.49C-77.87 -18.12 -77.62 -20.78 -77.27 -23.45C-76.92 -26.12 -76.47 -28.81 -75.92 -31.51C-75.38 -34.22 -74.8 -36.97 -74.01 -39.68C-73.21 -42.38 -72.19 -45.01 -71.17 -47.73C-70.16 -50.45 -69.2 -53.3 -67.92 -55.98C-66.64 -58.65 -65.1 -61.24 -63.47 -63.78C-61.84 -66.32 -60.06 -68.82 -58.14 -71.22C-56.21 -73.62 -54.15 -75.98 -51.93 -78.18C-49.71 -80.39 -47.36 -82.57 -44.83 -84.45C-42.3 -86.32 -39.54 -87.92 -36.74 -89.42C-33.95 -90.91 -31.03 -92.26 -28.06 -93.41C-25.08 -94.56 -22 -95.53 -18.9 -96.31C-15.79 -97.1 -12.61 -97.71 -9.42 -98.13C-6.23 -98.56 -2.99 -98.9 0.22 -98.87C3.44 -98.84 6.66 -98.36 9.85 -97.93C13.04 -97.5 16.24 -97.06 19.34 -96.29C22.44 -95.51 25.52 -94.48 28.46 -93.25C31.4 -92.02 34.22 -90.46 36.98 -88.91C39.74 -87.35 42.53 -85.85 45.02 -83.95C47.51 -82.05 49.73 -79.7 51.92 -77.49C54.11 -75.29 56.24 -73.06 58.15 -70.69C60.07 -68.32 61.83 -65.82 63.44 -63.29C65.04 -60.76 66.45 -58.11 67.77 -55.49C69.1 -52.87 70.35 -50.25 71.39 -47.58C72.44 -44.91 73.26 -42.15 74.04 -39.45C74.82 -36.75 75.5 -34.07 76.07 -31.39C76.65 -28.71 77.14 -26.04 77.48 -23.38C77.82 -20.72 77.9 -18.04 78.11 -15.41C78.32 -12.78 78.63 -10.21 78.74 -7.62C78.85 -5.03 78.76 -2.45 78.76 0.14Z"/><g class="g-eyes"><g class="g-blink"><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.08 0.05 0.99 -21.39 -9.01)"/><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.01 0.05 0.99 23.94 -11.23)"/></g></g></svg></template>
 
   <header class="strip" id="strip" data-state="idle">
-    <a class="brand" href="#top"><img src="assets/logo.svg" alt="" width="22" height="22"><span>LazyMouse</span></a>
+    <a class="brand" href="#top"><svg class="ghost-svg brand-ghost" viewBox="-86 -106 172 215" aria-hidden="true"><path class="g-body" d="M78.76 0.14C78.76 2.72 78.76 5.28 78.76 7.9C78.76 10.51 78.76 13.12 78.76 15.81C78.76 18.5 78.76 21.21 78.76 24.04C78.76 26.87 78.76 29.74 78.76 32.78C78.76 35.81 78.76 38.92 78.76 42.26C78.76 45.59 78.76 49.03 78.76 52.79C78.76 56.55 79.67 61.36 78.76 64.81C77.85 68.25 76.44 72.07 73.3 73.45C70.16 74.84 63.05 71.75 59.91 73.11C56.78 74.47 56.28 78.48 54.48 81.61C52.67 84.73 51.44 89.25 49.08 91.84C46.71 94.44 43.55 96.34 40.29 97.19C37.02 98.03 33.2 98.18 29.48 96.9C25.76 95.63 21.38 90.96 17.95 89.56C14.52 88.16 11.85 88.34 8.9 88.51C5.95 88.69 3.24 89.34 0.22 90.59C-2.79 91.84 -5.84 94.21 -9.19 96.01C-12.53 97.82 -16.39 100.74 -19.85 101.42C-23.32 102.11 -26.9 101.37 -30 100.12C-33.11 98.86 -35.91 96.26 -38.47 93.88C-41.04 91.49 -43.05 88.2 -45.4 85.79C-47.75 83.38 -49.17 80.24 -52.57 79.42C-55.97 78.6 -62.11 81.54 -65.8 80.86C-69.49 80.18 -72.66 78.03 -74.73 75.34C-76.8 72.65 -77.62 68.49 -78.22 64.73C-78.82 60.97 -78.3 56.53 -78.31 52.79C-78.33 49.04 -78.31 45.59 -78.31 42.26C-78.31 38.92 -78.31 35.81 -78.31 32.78C-78.31 29.74 -78.31 26.87 -78.31 24.04C-78.31 21.21 -78.31 18.5 -78.31 15.81C-78.31 13.12 -78.31 10.51 -78.31 7.9C-78.31 5.28 -78.31 2.72 -78.31 0.14C-78.31 -2.45 -78.35 -5.02 -78.31 -7.63C-78.26 -10.23 -78.21 -12.85 -78.04 -15.49C-77.87 -18.12 -77.62 -20.78 -77.27 -23.45C-76.92 -26.12 -76.47 -28.81 -75.92 -31.51C-75.38 -34.22 -74.8 -36.97 -74.01 -39.68C-73.21 -42.38 -72.19 -45.01 -71.17 -47.73C-70.16 -50.45 -69.2 -53.3 -67.92 -55.98C-66.64 -58.65 -65.1 -61.24 -63.47 -63.78C-61.84 -66.32 -60.06 -68.82 -58.14 -71.22C-56.21 -73.62 -54.15 -75.98 -51.93 -78.18C-49.71 -80.39 -47.36 -82.57 -44.83 -84.45C-42.3 -86.32 -39.54 -87.92 -36.74 -89.42C-33.95 -90.91 -31.03 -92.26 -28.06 -93.41C-25.08 -94.56 -22 -95.53 -18.9 -96.31C-15.79 -97.1 -12.61 -97.71 -9.42 -98.13C-6.23 -98.56 -2.99 -98.9 0.22 -98.87C3.44 -98.84 6.66 -98.36 9.85 -97.93C13.04 -97.5 16.24 -97.06 19.34 -96.29C22.44 -95.51 25.52 -94.48 28.46 -93.25C31.4 -92.02 34.22 -90.46 36.98 -88.91C39.74 -87.35 42.53 -85.85 45.02 -83.95C47.51 -82.05 49.73 -79.7 51.92 -77.49C54.11 -75.29 56.24 -73.06 58.15 -70.69C60.07 -68.32 61.83 -65.82 63.44 -63.29C65.04 -60.76 66.45 -58.11 67.77 -55.49C69.1 -52.87 70.35 -50.25 71.39 -47.58C72.44 -44.91 73.26 -42.15 74.04 -39.45C74.82 -36.75 75.5 -34.07 76.07 -31.39C76.65 -28.71 77.14 -26.04 77.48 -23.38C77.82 -20.72 77.9 -18.04 78.11 -15.41C78.32 -12.78 78.63 -10.21 78.74 -7.62C78.85 -5.03 78.76 -2.45 78.76 0.14Z"/><g class="g-eyes"><g class="g-blink"><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.08 0.05 0.99 -21.39 -9.01)"/><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.01 0.05 0.99 23.94 -11.23)"/></g></g></svg><span>lazymouse</span></a>
     <nav aria-label="Sections">
-      <a href="#gestures">Gestures</a>
-      <a href="#ask">Ask</a>
-      <a href="#pairing">Pairing</a>
-      <a href="#smooth">Smoothness</a>
-      <a href="#install" class="nav-install">Install</a>
-      <a href="support.html" class="nav-support">Support</a>
+      <a href="#drag">Trackpad</a>
+      <a href="#ask">Explain</a>
+      <a href="#takeover">Takes over</a>
+      <a href="#remote">Remote</a>
+      <a href="#more">Features</a>
     </nav>
-    <span class="state" role="status" aria-live="off">
-      <svg class="marker" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
-        <rect class="m-ring" x="1.5" y="1.5" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <rect class="m-fill" x="1.5" y="1.5" width="9" height="9" fill="currentColor"/>
-      </svg>
-      <span id="stateText">Link idle</span>
-    </span>
+    <span class="state" role="status" aria-live="off"><i class="dot"></i><span id="stateText">Link idle</span></span>
+    <a class="btn dark small" href="#download">Download</a>
   </header>
 
   <main id="main">
-    <!-- HERO -->
-    <section class="hero wrap" aria-labelledby="h-hero">
-      <div class="hero-head">
-        <h1 id="h-hero">
-          <span class="line"><span class="line-in">The trackpad</span></span>
-          <span class="line"><span class="line-in">is in your hand.</span></span>
-        </h1>
+    <!-- Hero: the photo, the line, and the ghost explaining a heart on a computer's screen. -->
+    <section class="hero" aria-labelledby="h-hero">
+      <div class="sky" aria-hidden="true"></div>
+      <div class="hero-in">
+        <a class="news" href="#takeover"><span class="new">New</span>It can now finish tasks for you<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+        <h1 id="h-hero"><span class="line"><span class="line-in">Your phone is the trackpad.</span></span><span class="line"><span class="line-in"><em>The ghost explains the rest.</em></span></span></h1>
         <div class="hero-side">
-          <p class="lede">Pair your iPhone once. The cursor goes where you throw it, over your own Wi-Fi. Say what you want and a ghost points at it. Free, with no account and nothing through our servers.</p>
-          <p class="actions">
-            <a class="btn primary" href="#install">Install it, free</a>
-            <a class="btn" href="#ask">Watch the ghost point</a>
-          </p>
+          <div class="cta">
+            <a class="btn primary" data-dl="windows" data-soon="Windows download: coming soon" href="#download"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#f25022" d="M2 2h9.5v9.5H2z"/><path fill="#7fba00" d="M12.5 2H22v9.5h-9.5z"/><path fill="#00a4ef" d="M2 12.5h9.5V22H2z"/><path fill="#ffb900" d="M12.5 12.5H22V22h-9.5z"/></svg><span>Download free for Windows</span><span class="tag">soon</span></a>
+            <a class="btn ghostly" href="#drag"><span>See it work</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v13M6 13l6 6 6-6"/></svg></a>
+          </div>
         </div>
       </div>
+      <div class="hero-screen">
+        <div class="monitor">
+          <div class="os-desk stage" id="explain" style="--wp:url(assets/wallpapers/gold.jpg)">
+            <div class="mini-mb"><span class="apple"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg></span><b>Finder</b><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span><span class="mb-r"><i class="mb-wifi"></i><span class="clk">9:41</span></span></div>
+            <div class="stk" id="stk">
+              <div class="stk-bar"><div class="stk-title">Heart diagram</div><div class="stk-tools"><i><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></i></div></div>
+              <div class="stk-paper"><img id="stkPic" src="assets/pictures/heart-diagram-en.png" alt="A labelled diagram of the human heart" width="960" height="756"></div>
+              <svg class="stk-marks" id="stkMarks"></svg>
+            </div>
+          </div>
+        </div>
+        <div class="hero-phone"><div class="ph-hold"><div class="ph ap" id="heroPhone" aria-hidden="true">
+  <div class="ap-top">
+    <div class="ap-status"><b>15:31</b><span class="ap-icons"><svg class="ic-sig" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg class="ic-wifi" viewBox="0 0 16 12"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM2.9 6.3a7.2 7.2 0 0 1 10.2 0l-1.4 1.4a5.2 5.2 0 0 0-7.4 0zM.2 3.6a11 11 0 0 1 15.6 0l-1.4 1.4a9 9 0 0 0-12.8 0z"/></svg><svg class="ic-bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke-opacity=".45"/><rect x="2" y="2" width="17" height="9" rx="2"/><path d="M25 4.5v4a2 2 0 0 0 0-4z" opacity=".45"/></svg></span></div>
+    <div class="ap-strip"><span class="ap-who"><svg class="ap-mini" viewBox="-86 -106 172 215"><path class="gb" d="M78.76 0.14C78.76 2.72 78.76 5.28 78.76 7.9C78.76 10.51 78.76 13.12 78.76 15.81C78.76 18.5 78.76 21.21 78.76 24.04C78.76 26.87 78.76 29.74 78.76 32.78C78.76 35.81 78.76 38.92 78.76 42.26C78.76 45.59 78.76 49.03 78.76 52.79C78.76 56.55 79.67 61.36 78.76 64.81C77.85 68.25 76.44 72.07 73.3 73.45C70.16 74.84 63.05 71.75 59.91 73.11C56.78 74.47 56.28 78.48 54.48 81.61C52.67 84.73 51.44 89.25 49.08 91.84C46.71 94.44 43.55 96.34 40.29 97.19C37.02 98.03 33.2 98.18 29.48 96.9C25.76 95.63 21.38 90.96 17.95 89.56C14.52 88.16 11.85 88.34 8.9 88.51C5.95 88.69 3.24 89.34 0.22 90.59C-2.79 91.84 -5.84 94.21 -9.19 96.01C-12.53 97.82 -16.39 100.74 -19.85 101.42C-23.32 102.11 -26.9 101.37 -30 100.12C-33.11 98.86 -35.91 96.26 -38.47 93.88C-41.04 91.49 -43.05 88.2 -45.4 85.79C-47.75 83.38 -49.17 80.24 -52.57 79.42C-55.97 78.6 -62.11 81.54 -65.8 80.86C-69.49 80.18 -72.66 78.03 -74.73 75.34C-76.8 72.65 -77.62 68.49 -78.22 64.73C-78.82 60.97 -78.3 56.53 -78.31 52.79C-78.33 49.04 -78.31 45.59 -78.31 42.26C-78.31 38.92 -78.31 35.81 -78.31 32.78C-78.31 29.74 -78.31 26.87 -78.31 24.04C-78.31 21.21 -78.31 18.5 -78.31 15.81C-78.31 13.12 -78.31 10.51 -78.31 7.9C-78.31 5.28 -78.31 2.72 -78.31 0.14C-78.31 -2.45 -78.35 -5.02 -78.31 -7.63C-78.26 -10.23 -78.21 -12.85 -78.04 -15.49C-77.87 -18.12 -77.62 -20.78 -77.27 -23.45C-76.92 -26.12 -76.47 -28.81 -75.92 -31.51C-75.38 -34.22 -74.8 -36.97 -74.01 -39.68C-73.21 -42.38 -72.19 -45.01 -71.17 -47.73C-70.16 -50.45 -69.2 -53.3 -67.92 -55.98C-66.64 -58.65 -65.1 -61.24 -63.47 -63.78C-61.84 -66.32 -60.06 -68.82 -58.14 -71.22C-56.21 -73.62 -54.15 -75.98 -51.93 -78.18C-49.71 -80.39 -47.36 -82.57 -44.83 -84.45C-42.3 -86.32 -39.54 -87.92 -36.74 -89.42C-33.95 -90.91 -31.03 -92.26 -28.06 -93.41C-25.08 -94.56 -22 -95.53 -18.9 -96.31C-15.79 -97.1 -12.61 -97.71 -9.42 -98.13C-6.23 -98.56 -2.99 -98.9 0.22 -98.87C3.44 -98.84 6.66 -98.36 9.85 -97.93C13.04 -97.5 16.24 -97.06 19.34 -96.29C22.44 -95.51 25.52 -94.48 28.46 -93.25C31.4 -92.02 34.22 -90.46 36.98 -88.91C39.74 -87.35 42.53 -85.85 45.02 -83.95C47.51 -82.05 49.73 -79.7 51.92 -77.49C54.11 -75.29 56.24 -73.06 58.15 -70.69C60.07 -68.32 61.83 -65.82 63.44 -63.29C65.04 -60.76 66.45 -58.11 67.77 -55.49C69.1 -52.87 70.35 -50.25 71.39 -47.58C72.44 -44.91 73.26 -42.15 74.04 -39.45C74.82 -36.75 75.5 -34.07 76.07 -31.39C76.65 -28.71 77.14 -26.04 77.48 -23.38C77.82 -20.72 77.9 -18.04 78.11 -15.41C78.32 -12.78 78.63 -10.21 78.74 -7.62C78.85 -5.03 78.76 -2.45 78.76 0.14Z"/><g class="ge"><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.08 0.05 0.99 -21.39 -9.01)"/><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.01 0.05 0.99 23.94 -11.23)"/></g></svg><span>Connected</span></span><span class="ap-ctl">Light</span><span class="ap-ctl">Disconnect</span></div>
+  </div>
+  <div class="ap-head"><span>Assistant</span><span class="ap-ctl dim">Settings</span></div>
+  <div class="ap-focus">
+    <div class="ap-ghost" data-v="idle"><i class="ring o" style="--i:0"></i><i class="ring o" style="--i:1"></i><i class="ring o" style="--i:2"></i><i class="ring in" style="--i:0"></i><i class="ring in" style="--i:1"></i><i class="ring in" style="--i:2"></i><svg class="ap-big" viewBox="-86 -106 172 215"><path class="gb" d="M78.76 0.14C78.76 2.72 78.76 5.28 78.76 7.9C78.76 10.51 78.76 13.12 78.76 15.81C78.76 18.5 78.76 21.21 78.76 24.04C78.76 26.87 78.76 29.74 78.76 32.78C78.76 35.81 78.76 38.92 78.76 42.26C78.76 45.59 78.76 49.03 78.76 52.79C78.76 56.55 79.67 61.36 78.76 64.81C77.85 68.25 76.44 72.07 73.3 73.45C70.16 74.84 63.05 71.75 59.91 73.11C56.78 74.47 56.28 78.48 54.48 81.61C52.67 84.73 51.44 89.25 49.08 91.84C46.71 94.44 43.55 96.34 40.29 97.19C37.02 98.03 33.2 98.18 29.48 96.9C25.76 95.63 21.38 90.96 17.95 89.56C14.52 88.16 11.85 88.34 8.9 88.51C5.95 88.69 3.24 89.34 0.22 90.59C-2.79 91.84 -5.84 94.21 -9.19 96.01C-12.53 97.82 -16.39 100.74 -19.85 101.42C-23.32 102.11 -26.9 101.37 -30 100.12C-33.11 98.86 -35.91 96.26 -38.47 93.88C-41.04 91.49 -43.05 88.2 -45.4 85.79C-47.75 83.38 -49.17 80.24 -52.57 79.42C-55.97 78.6 -62.11 81.54 -65.8 80.86C-69.49 80.18 -72.66 78.03 -74.73 75.34C-76.8 72.65 -77.62 68.49 -78.22 64.73C-78.82 60.97 -78.3 56.53 -78.31 52.79C-78.33 49.04 -78.31 45.59 -78.31 42.26C-78.31 38.92 -78.31 35.81 -78.31 32.78C-78.31 29.74 -78.31 26.87 -78.31 24.04C-78.31 21.21 -78.31 18.5 -78.31 15.81C-78.31 13.12 -78.31 10.51 -78.31 7.9C-78.31 5.28 -78.31 2.72 -78.31 0.14C-78.31 -2.45 -78.35 -5.02 -78.31 -7.63C-78.26 -10.23 -78.21 -12.85 -78.04 -15.49C-77.87 -18.12 -77.62 -20.78 -77.27 -23.45C-76.92 -26.12 -76.47 -28.81 -75.92 -31.51C-75.38 -34.22 -74.8 -36.97 -74.01 -39.68C-73.21 -42.38 -72.19 -45.01 -71.17 -47.73C-70.16 -50.45 -69.2 -53.3 -67.92 -55.98C-66.64 -58.65 -65.1 -61.24 -63.47 -63.78C-61.84 -66.32 -60.06 -68.82 -58.14 -71.22C-56.21 -73.62 -54.15 -75.98 -51.93 -78.18C-49.71 -80.39 -47.36 -82.57 -44.83 -84.45C-42.3 -86.32 -39.54 -87.92 -36.74 -89.42C-33.95 -90.91 -31.03 -92.26 -28.06 -93.41C-25.08 -94.56 -22 -95.53 -18.9 -96.31C-15.79 -97.1 -12.61 -97.71 -9.42 -98.13C-6.23 -98.56 -2.99 -98.9 0.22 -98.87C3.44 -98.84 6.66 -98.36 9.85 -97.93C13.04 -97.5 16.24 -97.06 19.34 -96.29C22.44 -95.51 25.52 -94.48 28.46 -93.25C31.4 -92.02 34.22 -90.46 36.98 -88.91C39.74 -87.35 42.53 -85.85 45.02 -83.95C47.51 -82.05 49.73 -79.7 51.92 -77.49C54.11 -75.29 56.24 -73.06 58.15 -70.69C60.07 -68.32 61.83 -65.82 63.44 -63.29C65.04 -60.76 66.45 -58.11 67.77 -55.49C69.1 -52.87 70.35 -50.25 71.39 -47.58C72.44 -44.91 73.26 -42.15 74.04 -39.45C74.82 -36.75 75.5 -34.07 76.07 -31.39C76.65 -28.71 77.14 -26.04 77.48 -23.38C77.82 -20.72 77.9 -18.04 78.11 -15.41C78.32 -12.78 78.63 -10.21 78.74 -7.62C78.85 -5.03 78.76 -2.45 78.76 0.14Z"/><g class="ge"><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.08 0.05 0.99 -21.39 -9.01)"/><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.01 0.05 0.99 23.94 -11.23)"/></g></svg><span class="dots"><i></i><i></i><i></i></span></div>
+    <p class="ap-word" hidden></p>
+    <div class="ap-caps">
+      <p class="ap-hint">Say what you want done: “Play Blinding Lights”, “Open YouTube”.</p>
+      <p class="ap-you" hidden></p>
+      <div class="ap-acts"></div>
+      <p class="ap-reply" hidden></p>
+    </div>
+    <p class="ap-all"><svg viewBox="0 0 24 24"><path d="M12 5v13M6 12l6 6 6-6"/></svg><span>Whole conversation</span></p>
+  </div>
+  <div class="ap-dock"><div class="ap-row">
+    <span class="ap-sq"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></svg><b>Mute</b></span>
+    <span class="ap-slot"><span class="ap-sq ap-stop primary"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" class="fill"/></svg><b>Stop</b></span></span>
+    <span class="ap-sq"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M6.5 10h1M10 10h1M13.5 10h1M17 10h.5M7 14h10"/></svg><b>Type</b></span>
+    <span class="ap-bar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><b>End</b></span>
+  </div></div>
+  <div class="ap-tabs"><span><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M6.5 10h1M10 10h1M13.5 10h1M17 10h.5M7 14h10"/></svg><b>Keyboard</b></span><span><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M9 20h6M12 16v4"/></svg><b>Screen</b></span><span><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 20h14"/></svg><b>Files</b></span><span class="on"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z"/></svg><b>Ask</b></span></div>
+  <i class="ap-home"></i>
+</div></div></div>
+      </div>
+    </section>
 
-      <figure class="rig" id="rig">
+    <!-- Granola's row: the apps you drive from the couch. -->
+    <section class="apps" aria-label="Works with the apps you use">
+      <p>Made for the couch, and for everything you watch, play and present</p>
+      <ul>
+          <li><span class="app-ico"><svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="10" fill="#fff"/><path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span>YouTube</li>
+          <li><span class="app-ico"><svg viewBox="0 0 24 24"><g transform="translate(2.4 0) scale(0.8 1)"><path fill="#E50914" d="m5.398 0 8.348 23.602c2.346.059 4.856.398 4.856.398L10.113 0H5.398zm8.489 0v9.172l4.715 13.33V0h-4.715zM5.398 1.5V24c1.873-.225 2.81-.312 4.715-.398V14.83L5.398 1.5z"/></g></svg></span>Netflix</li>
+          <li><span class="app-ico"><svg viewBox="0 0 24 24"><path fill="#1ED760" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></span>Spotify</li>
+          <li><span class="app-ico"><svg viewBox="0 0 24 24"><defs><clipPath id="vlc"><path d="M12.0319 0c-.8823 0-1.0545.136-1.0545.136-.1738.056-.3556.255-.4105.43L9.683 3.3808c.4729.1729 1.3222.4266 2.2337.4266 1.0987 0 2.017-.3494 2.3763-.5075L13.4352.566c-.055-.1755-.237-.3707-.4067-.4374 0 0-.1142-.1286-.9966-.1286zm3.5645 7.455c-.3601.34-1.3276.9373-3.6797.9373-2.2929 0-3.189-.5678-3.5213-.9113l-1.3887 4.4227c.2272.3614 1.2539 1.5594 4.8847 1.5594 3.7569 0 4.8539-1.3467 5.0649-1.6737zm-8.5897 4.4487l-1.0025 3.1922H4.3428c-.2486 0-.5097.1932-.5826.4315l-2.334 7.6317a.3962.3962 0 0 0-.0169.1537c-.0008.0053-.002.0099-.002.016 0 .0839.0233.226.0233.226.0322.2456.2612.4452.5098.4452h20.1192c.2487 0 .4768-.1994.5098-.4453 0 0 .0234-.142.0234-.226a.0245.0245 0 0 0-.0025-.01.3201.3201 0 0 0 .0024-.0313.4096.4096 0 0 0-.019-.1282l-2.3339-7.6318c-.0729-.2383-.334-.4314-.5826-.4314h-1.6636l.2005.6391c-.2407.4854-1.4886 2.38-6.3027 2.38-4.6003 0-5.8288-1.73-6.1107-2.3072z"/></clipPath></defs><path fill="#FF8800" d="M12.0319 0c-.8823 0-1.0545.136-1.0545.136-.1738.056-.3556.255-.4105.43L9.683 3.3808c.4729.1729 1.3222.4266 2.2337.4266 1.0987 0 2.017-.3494 2.3763-.5075L13.4352.566c-.055-.1755-.237-.3707-.4067-.4374 0 0-.1142-.1286-.9966-.1286zm3.5645 7.455c-.3601.34-1.3276.9373-3.6797.9373-2.2929 0-3.189-.5678-3.5213-.9113l-1.3887 4.4227c.2272.3614 1.2539 1.5594 4.8847 1.5594 3.7569 0 4.8539-1.3467 5.0649-1.6737zm-8.5897 4.4487l-1.0025 3.1922H4.3428c-.2486 0-.5097.1932-.5826.4315l-2.334 7.6317a.3962.3962 0 0 0-.0169.1537c-.0008.0053-.002.0099-.002.016 0 .0839.0233.226.0233.226.0322.2456.2612.4452.5098.4452h20.1192c.2487 0 .4768-.1994.5098-.4453 0 0 .0234-.142.0234-.226a.0245.0245 0 0 0-.0025-.01.3201.3201 0 0 0 .0024-.0313.4096.4096 0 0 0-.019-.1282l-2.3339-7.6318c-.0729-.2383-.334-.4314-.5826-.4314h-1.6636l.2005.6391c-.2407.4854-1.4886 2.38-6.3027 2.38-4.6003 0-5.8288-1.73-6.1107-2.3072z"/><g clip-path="url(#vlc)"><rect y="7.2" width="24" height="2.2" fill="#fff"/><rect y="12.6" width="24" height="2.2" fill="#fff"/></g></svg></span>VLC</li>
+          <li><span class="app-ico"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#fff"/><path d="M24 2a22 22 0 0 1 19.05 11H24a11 11 0 0 0-9.53 5.5L8.95 9.95A22 22 0 0 1 24 2z" fill="#EA4335"/><path d="M43.05 13A22 22 0 0 1 26.3 45.88l9.27-16.38A11 11 0 0 0 35 18.5c0-1.98-.53-3.83-1.45-5.5z" fill="#FBBC05"/><path d="M26.3 45.88A22 22 0 0 1 8.95 9.95l5.52 8.55A11 11 0 0 0 24 35c1.95 0 3.8-.5 5.4-1.4z" fill="#34A853"/><circle cx="24" cy="24" r="9.6" fill="#fff"/><circle cx="24" cy="24" r="7.8" fill="#4285F4"/></svg></span>Chrome</li>
+          <li><span class="app-ico"><svg viewBox="0 0 24 24"><rect x="5" y="9" width="14" height="8" fill="#fff"/><path fill="#FBBC04" d="M16.09 15.273H7.91v-4.637h8.18v4.637zm1.728-8.523h2.91v15.614c0 .904-.733 1.636-1.637 1.636H4.909a1.636 1.636 0 0 1-1.636-1.636V1.636C3.273.732 4.005 0 4.909 0h9.068v6.75h3.841zm-.363 2.523H6.545v7.363h10.91V9.273zm-2.728-5.979V6h6.001l-6-6v3.294z"/></svg></span>Google Slides</li>
+      </ul>
+    </section>
+
+    <!-- Drag: the trackpad, small, with the ghost carrying the cursor as in the app. -->
+    <section class="sec" id="drag" aria-labelledby="h-drag">
+      <div class="drag-head">
+        <h2 id="h-drag" class="display" data-reveal><span class="line"><span class="line-in">Drag on your phone.</span></span><span class="line"><span class="line-in"><em>The ghost carries the cursor.</em></span></span></h2>
+        <p data-reveal>The pad works like a laptop's. And while your phone is moving things, the ghost holds the pointer, just as it does on your screen.</p>
+      </div>
+      <div class="drag-win" data-reveal>
+        <div class="mac big">
+          <div class="mac-bar"><i class="lights"><b></b><b></b><b></b></i><span class="mac-title">lazymouse — try it: drag on the pad</span></div>
+          <div class="mac-body">
+            <figure class="rig" id="rig">
         <div class="rig-grid">
           <div class="pad" id="pad" tabindex="0" role="application" aria-label="Demo trackpad. Drag, or use the arrow keys, to move the cursor on the screen beside it.">
             <svg class="rulers" id="rulers" aria-hidden="true"></svg>
@@ -90,49 +143,23 @@
           <p class="rig-note"><span class="key-finger"></span> finger <span class="key-cursor"></span> cursor. The demo maps the pad onto the screen; the app moves the cursor relatively, like a laptop trackpad.</p>
         </figcaption>
       </figure>
-    </section>
-
-    <!-- GESTURES -->
-    <section class="sec wrap" id="gestures" aria-labelledby="h-gest">
-      <h2 id="h-gest" data-reveal>
-        <span class="line"><span class="line-in">Five gestures.</span></span>
-        <span class="line"><span class="line-in">The ones you already know.</span></span>
-      </h2>
-      <div class="gest" data-reveal>
-        <div class="tabs" role="tablist" aria-label="Gestures">
-          <button role="tab" id="t-move" aria-controls="p-gest" aria-selected="true" data-g="move">Drag<span>Move the cursor</span></button>
-          <button role="tab" id="t-tap" aria-controls="p-gest" aria-selected="false" data-g="tap" tabindex="-1">Tap<span>Left click</span></button>
-          <button role="tab" id="t-right" aria-controls="p-gest" aria-selected="false" data-g="right" tabindex="-1">Two-finger tap<span>Right click</span></button>
-          <button role="tab" id="t-scroll" aria-controls="p-gest" aria-selected="false" data-g="scroll" tabindex="-1">Two-finger drag<span>Scroll</span></button>
-          <button role="tab" id="t-hold" aria-controls="p-gest" aria-selected="false" data-g="hold" tabindex="-1">Hold, then drag<span>Select and move</span></button>
-        </div>
-        <div class="gest-body" id="p-gest" role="tabpanel" aria-labelledby="t-move">
-          <div class="pad mini" id="gpad" aria-hidden="true">
-            <svg class="rulers" id="grulers"></svg>
-            <span class="ring" id="gring"></span>
-            <span class="finger f1" id="gf1"></span>
-            <span class="finger f2" id="gf2"></span>
-          </div>
-          <div class="gest-text">
-            <h3 id="gTitle">Drag one finger</h3>
-            <p id="gBody">The cursor follows. Moving never holds the button down, so a long, slow move cannot select everything it passes over.</p>
-            <pre class="code log" id="glog" aria-label="Messages sent to the computer" aria-live="off"></pre>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ASK -->
-    <section class="sec wrap" id="ask" aria-labelledby="h-ask">
-      <h2 id="h-ask" data-reveal>
-        <span class="line"><span class="line-in">Or just say it.</span></span>
-        <span class="line"><span class="line-in">The ghost shows you.</span></span>
-      </h2>
-      <p class="ask-lede" data-reveal>Ask what you are looking at. The assistant reads the screen and explains it part by part, and the ghost that follows your cursor goes to each part as it is spoken about.</p>
-
-      <figure class="scene" id="scene">
+    <!-- Ask: the Audacity scene. -->
+    <section class="sec" id="ask" aria-labelledby="h-ask">
+      <span class="badge blue" data-reveal><i></i>Explain</span>
+      <h2 id="h-ask" class="display center" data-reveal><span class="line"><span class="line-in">Ask what's on your screen.</span></span><span class="line"><span class="line-in"><em>The ghost points.</em></span></span></h2>
+      <p class="sub center" data-reveal>Say “what am I looking at?” The assistant explains it part by part, and the ghost flies to each part as it speaks: an app, a diagram, a page, anything on the screen.</p>
+      <div class="ask-win" data-reveal>
+        <div class="mac wide">
+          <div class="mac-bar"><i class="lights"><b></b><b></b><b></b></i><span class="mac-title">Ask — Audacity</span></div>
+          <div class="mac-body">
+            <figure class="scene" id="scene">
         <div class="scene-grid">
-          <div class="desk" id="desk" role="img" aria-label="A computer screen with Audacity open and the LazyMouse app running in a corner. The ghost beside the mouse pointer goes to the Audacity window, then its Record button, then its tracks, as the assistant explains each.">
+          <div class="desk" id="desk" role="img" aria-label="A computer screen with Audacity open and the lazymouse app running in a corner. The ghost beside the mouse pointer goes to the Audacity window, then its Record button, then its tracks, as the assistant explains each.">
             <div class="plane" id="plane" aria-hidden="true">
               <!-- Audacity, drawn in the screen's own pixels -->
               <div class="aud" id="aud">
@@ -174,7 +201,7 @@
                 <div class="aud-status"><span>Project Rate (Hz): 44100</span><span>Snap-To: Off</span><span>Selection Start: 00 h 00 m 00.000 s</span></div>
               </div>
 
-              <!-- LazyMouse, running -->
+              <!-- lazymouse, running -->
               <div class="lmw" id="lmw">
                 <div class="lmw-bar"><svg viewBox="0 0 10 10" width="10" height="10"><rect width="10" height="10"/></svg><span>Connected to iPhone</span><i class="lmw-x"></i></div>
                 <div class="lmw-body">
@@ -191,24 +218,32 @@
           </div>
 
           <div class="phonebox" id="phoneBox">
-            <div class="ph-hold"><div class="ph" id="ph" aria-hidden="true">
-              <div class="ph-top">
-                <div class="ph-status"><b>15:29</b><span class="ph-icons"><i></i><i></i><i></i></span></div>
-                <div class="ph-strip"><span class="ph-who"><svg viewBox="-86 -106 172 215" width="18" height="22"><path class="gb" d=""/><g class="ge"></g></svg><b>Connected</b></span><span class="ph-btns"><i>Light</i><i>Disconnect</i></span></div>
-              </div>
-              <div class="ph-asst"><span class="ph-who2"><svg viewBox="-86 -106 172 215" width="26" height="32"><path class="gb" d=""/><g class="ge"></g></svg><b>Assistant</b></span><i class="ph-set">Settings</i></div>
-              <div class="ph-log" id="phLog"></div>
-              <div class="ph-dock" id="phDock">
-                <div class="ph-band" id="phBand"><b id="phWord">Listening</b><span class="ph-ruler" id="phRuler"></span></div>
-                <div class="ph-row" id="phRow">
-                  <i class="sq" id="phMute"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" fill="none"/></svg><em>Mute</em></i>
-                  <i class="sq" id="phHush"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none"/></svg><em>Hush</em></i>
-                  <i class="sq"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="none"/><path d="M6 10h2M10 10h2M14 10h2M7 14h10" fill="none"/></svg><em>Type</em></i>
-                  <i class="bar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none"/></svg><b>End</b></i>
-                </div>
-              </div>
-              <div class="ph-tabs"><span><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1" fill="none"/><path d="M6 10h2M10 10h2M14 10h2M7 14h10" fill="none"/></svg>Keyboard</span><span><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1" fill="none"/><path d="M9 20h6M12 16v4" fill="none"/></svg>Screen</span><span><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 20h14" fill="none"/></svg>Files</span><span class="on"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z" fill="none"/></svg>Ask</span></div>
-            </div></div>
+            <div class="ph-hold"><div class="ph ap" id="ph" aria-hidden="true">
+  <div class="ap-top">
+    <div class="ap-status"><b>15:31</b><span class="ap-icons"><svg class="ic-sig" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg class="ic-wifi" viewBox="0 0 16 12"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM2.9 6.3a7.2 7.2 0 0 1 10.2 0l-1.4 1.4a5.2 5.2 0 0 0-7.4 0zM.2 3.6a11 11 0 0 1 15.6 0l-1.4 1.4a9 9 0 0 0-12.8 0z"/></svg><svg class="ic-bat" viewBox="0 0 27 13"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke-opacity=".45"/><rect x="2" y="2" width="17" height="9" rx="2"/><path d="M25 4.5v4a2 2 0 0 0 0-4z" opacity=".45"/></svg></span></div>
+    <div class="ap-strip"><span class="ap-who"><svg class="ap-mini" viewBox="-86 -106 172 215"><path class="gb" d="M78.76 0.14C78.76 2.72 78.76 5.28 78.76 7.9C78.76 10.51 78.76 13.12 78.76 15.81C78.76 18.5 78.76 21.21 78.76 24.04C78.76 26.87 78.76 29.74 78.76 32.78C78.76 35.81 78.76 38.92 78.76 42.26C78.76 45.59 78.76 49.03 78.76 52.79C78.76 56.55 79.67 61.36 78.76 64.81C77.85 68.25 76.44 72.07 73.3 73.45C70.16 74.84 63.05 71.75 59.91 73.11C56.78 74.47 56.28 78.48 54.48 81.61C52.67 84.73 51.44 89.25 49.08 91.84C46.71 94.44 43.55 96.34 40.29 97.19C37.02 98.03 33.2 98.18 29.48 96.9C25.76 95.63 21.38 90.96 17.95 89.56C14.52 88.16 11.85 88.34 8.9 88.51C5.95 88.69 3.24 89.34 0.22 90.59C-2.79 91.84 -5.84 94.21 -9.19 96.01C-12.53 97.82 -16.39 100.74 -19.85 101.42C-23.32 102.11 -26.9 101.37 -30 100.12C-33.11 98.86 -35.91 96.26 -38.47 93.88C-41.04 91.49 -43.05 88.2 -45.4 85.79C-47.75 83.38 -49.17 80.24 -52.57 79.42C-55.97 78.6 -62.11 81.54 -65.8 80.86C-69.49 80.18 -72.66 78.03 -74.73 75.34C-76.8 72.65 -77.62 68.49 -78.22 64.73C-78.82 60.97 -78.3 56.53 -78.31 52.79C-78.33 49.04 -78.31 45.59 -78.31 42.26C-78.31 38.92 -78.31 35.81 -78.31 32.78C-78.31 29.74 -78.31 26.87 -78.31 24.04C-78.31 21.21 -78.31 18.5 -78.31 15.81C-78.31 13.12 -78.31 10.51 -78.31 7.9C-78.31 5.28 -78.31 2.72 -78.31 0.14C-78.31 -2.45 -78.35 -5.02 -78.31 -7.63C-78.26 -10.23 -78.21 -12.85 -78.04 -15.49C-77.87 -18.12 -77.62 -20.78 -77.27 -23.45C-76.92 -26.12 -76.47 -28.81 -75.92 -31.51C-75.38 -34.22 -74.8 -36.97 -74.01 -39.68C-73.21 -42.38 -72.19 -45.01 -71.17 -47.73C-70.16 -50.45 -69.2 -53.3 -67.92 -55.98C-66.64 -58.65 -65.1 -61.24 -63.47 -63.78C-61.84 -66.32 -60.06 -68.82 -58.14 -71.22C-56.21 -73.62 -54.15 -75.98 -51.93 -78.18C-49.71 -80.39 -47.36 -82.57 -44.83 -84.45C-42.3 -86.32 -39.54 -87.92 -36.74 -89.42C-33.95 -90.91 -31.03 -92.26 -28.06 -93.41C-25.08 -94.56 -22 -95.53 -18.9 -96.31C-15.79 -97.1 -12.61 -97.71 -9.42 -98.13C-6.23 -98.56 -2.99 -98.9 0.22 -98.87C3.44 -98.84 6.66 -98.36 9.85 -97.93C13.04 -97.5 16.24 -97.06 19.34 -96.29C22.44 -95.51 25.52 -94.48 28.46 -93.25C31.4 -92.02 34.22 -90.46 36.98 -88.91C39.74 -87.35 42.53 -85.85 45.02 -83.95C47.51 -82.05 49.73 -79.7 51.92 -77.49C54.11 -75.29 56.24 -73.06 58.15 -70.69C60.07 -68.32 61.83 -65.82 63.44 -63.29C65.04 -60.76 66.45 -58.11 67.77 -55.49C69.1 -52.87 70.35 -50.25 71.39 -47.58C72.44 -44.91 73.26 -42.15 74.04 -39.45C74.82 -36.75 75.5 -34.07 76.07 -31.39C76.65 -28.71 77.14 -26.04 77.48 -23.38C77.82 -20.72 77.9 -18.04 78.11 -15.41C78.32 -12.78 78.63 -10.21 78.74 -7.62C78.85 -5.03 78.76 -2.45 78.76 0.14Z"/><g class="ge"><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.08 0.05 0.99 -21.39 -9.01)"/><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.01 0.05 0.99 23.94 -11.23)"/></g></svg><span>Connected</span></span><span class="ap-ctl">Light</span><span class="ap-ctl">Disconnect</span></div>
+  </div>
+  <div class="ap-head"><span>Assistant</span><span class="ap-ctl dim">Settings</span></div>
+  <div class="ap-focus">
+    <div class="ap-ghost" data-v="idle"><i class="ring o" style="--i:0"></i><i class="ring o" style="--i:1"></i><i class="ring o" style="--i:2"></i><i class="ring in" style="--i:0"></i><i class="ring in" style="--i:1"></i><i class="ring in" style="--i:2"></i><svg class="ap-big" viewBox="-86 -106 172 215"><path class="gb" d="M78.76 0.14C78.76 2.72 78.76 5.28 78.76 7.9C78.76 10.51 78.76 13.12 78.76 15.81C78.76 18.5 78.76 21.21 78.76 24.04C78.76 26.87 78.76 29.74 78.76 32.78C78.76 35.81 78.76 38.92 78.76 42.26C78.76 45.59 78.76 49.03 78.76 52.79C78.76 56.55 79.67 61.36 78.76 64.81C77.85 68.25 76.44 72.07 73.3 73.45C70.16 74.84 63.05 71.75 59.91 73.11C56.78 74.47 56.28 78.48 54.48 81.61C52.67 84.73 51.44 89.25 49.08 91.84C46.71 94.44 43.55 96.34 40.29 97.19C37.02 98.03 33.2 98.18 29.48 96.9C25.76 95.63 21.38 90.96 17.95 89.56C14.52 88.16 11.85 88.34 8.9 88.51C5.95 88.69 3.24 89.34 0.22 90.59C-2.79 91.84 -5.84 94.21 -9.19 96.01C-12.53 97.82 -16.39 100.74 -19.85 101.42C-23.32 102.11 -26.9 101.37 -30 100.12C-33.11 98.86 -35.91 96.26 -38.47 93.88C-41.04 91.49 -43.05 88.2 -45.4 85.79C-47.75 83.38 -49.17 80.24 -52.57 79.42C-55.97 78.6 -62.11 81.54 -65.8 80.86C-69.49 80.18 -72.66 78.03 -74.73 75.34C-76.8 72.65 -77.62 68.49 -78.22 64.73C-78.82 60.97 -78.3 56.53 -78.31 52.79C-78.33 49.04 -78.31 45.59 -78.31 42.26C-78.31 38.92 -78.31 35.81 -78.31 32.78C-78.31 29.74 -78.31 26.87 -78.31 24.04C-78.31 21.21 -78.31 18.5 -78.31 15.81C-78.31 13.12 -78.31 10.51 -78.31 7.9C-78.31 5.28 -78.31 2.72 -78.31 0.14C-78.31 -2.45 -78.35 -5.02 -78.31 -7.63C-78.26 -10.23 -78.21 -12.85 -78.04 -15.49C-77.87 -18.12 -77.62 -20.78 -77.27 -23.45C-76.92 -26.12 -76.47 -28.81 -75.92 -31.51C-75.38 -34.22 -74.8 -36.97 -74.01 -39.68C-73.21 -42.38 -72.19 -45.01 -71.17 -47.73C-70.16 -50.45 -69.2 -53.3 -67.92 -55.98C-66.64 -58.65 -65.1 -61.24 -63.47 -63.78C-61.84 -66.32 -60.06 -68.82 -58.14 -71.22C-56.21 -73.62 -54.15 -75.98 -51.93 -78.18C-49.71 -80.39 -47.36 -82.57 -44.83 -84.45C-42.3 -86.32 -39.54 -87.92 -36.74 -89.42C-33.95 -90.91 -31.03 -92.26 -28.06 -93.41C-25.08 -94.56 -22 -95.53 -18.9 -96.31C-15.79 -97.1 -12.61 -97.71 -9.42 -98.13C-6.23 -98.56 -2.99 -98.9 0.22 -98.87C3.44 -98.84 6.66 -98.36 9.85 -97.93C13.04 -97.5 16.24 -97.06 19.34 -96.29C22.44 -95.51 25.52 -94.48 28.46 -93.25C31.4 -92.02 34.22 -90.46 36.98 -88.91C39.74 -87.35 42.53 -85.85 45.02 -83.95C47.51 -82.05 49.73 -79.7 51.92 -77.49C54.11 -75.29 56.24 -73.06 58.15 -70.69C60.07 -68.32 61.83 -65.82 63.44 -63.29C65.04 -60.76 66.45 -58.11 67.77 -55.49C69.1 -52.87 70.35 -50.25 71.39 -47.58C72.44 -44.91 73.26 -42.15 74.04 -39.45C74.82 -36.75 75.5 -34.07 76.07 -31.39C76.65 -28.71 77.14 -26.04 77.48 -23.38C77.82 -20.72 77.9 -18.04 78.11 -15.41C78.32 -12.78 78.63 -10.21 78.74 -7.62C78.85 -5.03 78.76 -2.45 78.76 0.14Z"/><g class="ge"><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.08 0.05 0.99 -21.39 -9.01)"/><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.01 0.05 0.99 23.94 -11.23)"/></g></svg><span class="dots"><i></i><i></i><i></i></span></div>
+    <p class="ap-word" hidden></p>
+    <div class="ap-caps">
+      <p class="ap-hint">Say what you want done: “Play Blinding Lights”, “Open YouTube”.</p>
+      <p class="ap-you" hidden></p>
+      <div class="ap-acts"></div>
+      <p class="ap-reply" hidden></p>
+    </div>
+    <p class="ap-all"><svg viewBox="0 0 24 24"><path d="M12 5v13M6 12l6 6 6-6"/></svg><span>Whole conversation</span></p>
+  </div>
+  <div class="ap-dock"><div class="ap-row">
+    <span class="ap-sq"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></svg><b>Mute</b></span>
+    <span class="ap-slot"><span class="ap-sq ap-stop primary"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" class="fill"/></svg><b>Stop</b></span></span>
+    <span class="ap-sq"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M6.5 10h1M10 10h1M13.5 10h1M17 10h.5M7 14h10"/></svg><b>Type</b></span>
+    <span class="ap-bar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><b>End</b></span>
+  </div></div>
+  <div class="ap-tabs"><span><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M6.5 10h1M10 10h1M13.5 10h1M17 10h.5M7 14h10"/></svg><b>Keyboard</b></span><span><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M9 20h6M12 16v4"/></svg><b>Screen</b></span><span><svg viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 20h14"/></svg><b>Files</b></span><span class="on"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z"/></svg><b>Ask</b></span></div>
+  <i class="ap-home"></i>
+</div></div>
           </div>
         </div>
         <figcaption class="scene-foot">
@@ -216,88 +251,119 @@
           <button type="button" class="btn" id="sceneReplay">Replay</button>
         </figcaption>
       </figure>
-    </section>
-
-    <!-- PAIRING -->
-    <section class="sec wrap" id="pairing" aria-labelledby="h-pair">
-      <h2 id="h-pair" data-reveal>
-        <span class="line"><span class="line-in">Scan once.</span></span>
-        <span class="line"><span class="line-in">Never think about it again.</span></span>
-      </h2>
-      <div class="pair">
-        <ol class="steps" id="steps">
-          <li data-reveal>
-            <h3>The computer opens a door</h3>
-            <p>On launch the desktop app picks a fresh 128-bit token, listens on port 8787 and shows a QR code. The token is the introduction and nothing more: it is never sent, only proved, and a phone that pairs uses it up.</p>
-          </li>
-          <li data-reveal>
-            <h3>The phone scans it</h3>
-            <p>The code carries the address and the token. Credentials are checked before the socket is upgraded, so a wrong code gets a plain <code>401</code>, not a connection that fails for no stated reason.</p>
-          </li>
-          <li data-reveal>
-            <h3>Every launch after is a reconnect</h3>
-            <p>Both sides work out a shared secret from the code, so nothing secret is ever sent over the Wi-Fi, and the code stops working the moment it is used. Disconnect, restart either side, change rooms: it reconnects without it. <b>Forget</b> on the desktop revokes the phone.</p>
-          </li>
-        </ol>
-        <pre class="code qr" data-reveal aria-label="What the QR code encodes"><span class="c">// what the QR encodes</span>
-{
-  <span class="k">"v"</span>: 2,
-  <span class="k">"id"</span>: "be15…",
-  <span class="k">"host"</span>: "192.168.1.7",
-  <span class="k">"port"</span>: 8787,
-  <span class="k">"token"</span>: "9eb5…",
-  <span class="k">"name"</span>: "desk"
-}</pre>
-      </div>
-    </section>
-
-    <!-- SMOOTHNESS -->
-    <section class="sec inverse" id="smooth" aria-labelledby="h-smooth">
-      <div class="wrap">
-        <h2 id="h-smooth" data-reveal>
-          <span class="line"><span class="line-in">Smooth is measured,</span></span>
-          <span class="line"><span class="line-in">not adjusted by feel.</span></span>
-        </h2>
-        <div class="smooth">
-          <div class="smooth-copy" data-reveal>
-            <p>Wi-Fi delivers a finger's path in lumps. Apply each lump as it arrives and the cursor shows the network's timing instead of yours.</p>
-            <p>So every move packet carries the moment of the touch, and the computer replays the path from those times, a few milliseconds behind. A late packet changes nothing if it lands before the playhead needs it.</p>
-            <p class="cost"><b>What it costs.</b> Latency. The delay is 8 ms on a clean link and grows with measured jitter, capped at 60 ms. A poor link now trails a little more and stutters far less.</p>
-          </div>
-          <div class="bars" id="bars" role="img" aria-label="Path unevenness of a simulated swipe, in pixels. Before: 5.8 to 7.0. After on jittery Wi-Fi: 2.8. After on a clean link: 1.7.">
-            <p class="bars-title">Unevenness of a brisk swipe, px at 60&nbsp;Hz. Lower is smoother.</p>
-            <div class="bar before"><span class="bar-name">Before, any link</span><span class="track"><i style="--from:5.8;--to:7.0"></i></span><span class="bar-val">5.8–7.0</span></div>
-            <div class="bar"><span class="bar-name">Now, jittery Wi-Fi</span><span class="track"><i style="--to:2.8"></i></span><span class="bar-val" data-count="2.8">2.8</span></div>
-            <div class="bar"><span class="bar-name">Now, clean link</span><span class="track"><i style="--to:1.7"></i></span><span class="bar-val" data-count="1.7">1.7</span></div>
-            <p class="bars-foot">On the real machine, end to end: 1.5 px clean, 1.6 px with jitter. The simulator predicted 1.1 and 1.7.</p>
           </div>
         </div>
-        <p class="limit" data-reveal><b>One stall we cannot remove.</b> On Windows, <code>SetCursorPos</code> can block for 15–30&nbsp;ms when the pointer crosses into a window that is slow to answer a hit-test. A hitch at the same spot every time is that, not the network.</p>
       </div>
     </section>
 
-    <!-- THE REST OF THE KIT -->
-    <section class="sec wrap" id="kit" aria-labelledby="h-kit">
-      <h2 id="h-kit" data-reveal>
-        <span class="line"><span class="line-in">Small surface.</span></span>
-        <span class="line"><span class="line-in">What you actually need.</span></span>
-      </h2>
-      <div class="kit">
-        <article class="kit-a" data-reveal>
-          <h3>One thumb, three states</h3>
-          <p>You cannot hold ctrl and press a letter with one thumb. So ctrl, shift and alt are armed by one tap and held by two. A held alt stays down on the computer, which is what alt-tab needs.</p>
-          <div class="mods" id="mods">
+    <!-- New: it takes over to finish the task. -->
+    <section class="sec" id="takeover" aria-labelledby="h-take">
+      <div class="take-grid">
+        <div class="take-copy">
+          <span class="badge orange" data-reveal><i></i>New</span>
+          <h2 id="h-take" class="display" data-reveal><span class="line"><span class="line-in">Say what you want.</span></span><span class="line"><span class="line-in"><em>It takes the mouse.</em></span></span></h2>
+          <p data-reveal>Ask for something and the ghost does it on your computer, click by click, while you watch from the couch. Grab the pad at any moment to take back over.</p>
+          <ol class="take-steps" id="toSteps" data-reveal>
+            <li>Opens Settings</li>
+            <li>Goes to Wallpaper</li>
+            <li>Picks Monument Valley</li>
+            <li>Done, and tells you</li>
+          </ol>
+        </div>
+        <div class="take-screen" data-reveal>
+          <div class="monitor small">
+            <div class="os-desk stage" id="takeover-stage" style="--wp:url(assets/wallpapers/lake.jpg)">
+              <span class="desk-next" id="toNext" style="background-image:url(assets/wallpapers/valley.jpg)"></span>
+              <div class="mini-mb"><span class="apple"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg></span><b>Finder</b><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span class="mb-r"><i class="mb-wifi"></i><span class="clk">9:41</span></span></div>
+              <div class="set-win" id="toWin" aria-hidden="true">
+              <div class="set-side">
+                <span class="lights"><b data-close></b><b></b><b></b></span>
+                <span class="si"><i style="--c:#2f80ed"></i>Wi-Fi</span>
+                <span class="si"><i style="--c:#2f80ed"></i>Bluetooth</span>
+                <span class="si"><i style="--c:#8e8e93"></i>General</span>
+                <span class="si" id="toWpItem"><i style="--c:#30b0c7"></i>Wallpaper</span>
+                <span class="si"><i style="--c:#5856d6"></i>Displays</span>
+              </div>
+              <div class="set-main">
+                <b class="set-h" id="toHead">General</b>
+                <div class="set-general"><i></i><i></i><i></i></div>
+                <div class="wp-grid" id="toGrid">
+                  <span class="wp now" style="background-image:url(assets/wallpapers/lake.jpg)"></span>
+                  <span class="wp" id="toValley" style="background-image:url(assets/wallpapers/valley.jpg)"></span>
+                  <span class="wp" style="background-image:url(assets/wallpapers/sunset.jpg)"></span>
+                  <span class="wp" style="background-image:url(assets/wallpapers/hills.jpg)"></span>
+                </div>
+              </div>
+            </div>
+              <div class="dock" aria-hidden="true">
+              <span class="di finder"><i></i></span>
+              <span class="di"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#fff"/><path d="M24 2a22 22 0 0 1 19.05 11H24a11 11 0 0 0-9.53 5.5L8.95 9.95A22 22 0 0 1 24 2z" fill="#EA4335"/><path d="M43.05 13A22 22 0 0 1 26.3 45.88l9.27-16.38A11 11 0 0 0 35 18.5c0-1.98-.53-3.83-1.45-5.5z" fill="#FBBC05"/><path d="M26.3 45.88A22 22 0 0 1 8.95 9.95l5.52 8.55A11 11 0 0 0 24 35c1.95 0 3.8-.5 5.4-1.4z" fill="#34A853"/><circle cx="24" cy="24" r="9.6" fill="#fff"/><circle cx="24" cy="24" r="7.8" fill="#4285F4"/></svg></span>
+              <span class="di dark"><svg viewBox="0 0 24 24"><path fill="#1ED760" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></span>
+              <span class="di"><svg viewBox="0 0 24 24"><rect x="5" y="9" width="14" height="8" fill="#fff"/><path fill="#FBBC04" d="M16.09 15.273H7.91v-4.637h8.18v4.637zm1.728-8.523h2.91v15.614c0 .904-.733 1.636-1.637 1.636H4.909a1.636 1.636 0 0 1-1.636-1.636V1.636C3.273.732 4.005 0 4.909 0h9.068v6.75h3.841zm-.363 2.523H6.545v7.363h10.91V9.273zm-2.728-5.979V6h6.001l-6-6v3.294z"/></svg></span>
+              <span class="di settings" id="toSettingsIcon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg></span>
+            </div>
+              <p class="ask-bubble" id="toAsk"><span>Make Monument Valley my wallpaper</span></p>
+              <p class="done-bubble" id="toDone"><svg class="ghost-svg talk-ghost" viewBox="-86 -106 172 215" aria-hidden="true"><path class="g-body" d="M78.76 0.14C78.76 2.72 78.76 5.28 78.76 7.9C78.76 10.51 78.76 13.12 78.76 15.81C78.76 18.5 78.76 21.21 78.76 24.04C78.76 26.87 78.76 29.74 78.76 32.78C78.76 35.81 78.76 38.92 78.76 42.26C78.76 45.59 78.76 49.03 78.76 52.79C78.76 56.55 79.67 61.36 78.76 64.81C77.85 68.25 76.44 72.07 73.3 73.45C70.16 74.84 63.05 71.75 59.91 73.11C56.78 74.47 56.28 78.48 54.48 81.61C52.67 84.73 51.44 89.25 49.08 91.84C46.71 94.44 43.55 96.34 40.29 97.19C37.02 98.03 33.2 98.18 29.48 96.9C25.76 95.63 21.38 90.96 17.95 89.56C14.52 88.16 11.85 88.34 8.9 88.51C5.95 88.69 3.24 89.34 0.22 90.59C-2.79 91.84 -5.84 94.21 -9.19 96.01C-12.53 97.82 -16.39 100.74 -19.85 101.42C-23.32 102.11 -26.9 101.37 -30 100.12C-33.11 98.86 -35.91 96.26 -38.47 93.88C-41.04 91.49 -43.05 88.2 -45.4 85.79C-47.75 83.38 -49.17 80.24 -52.57 79.42C-55.97 78.6 -62.11 81.54 -65.8 80.86C-69.49 80.18 -72.66 78.03 -74.73 75.34C-76.8 72.65 -77.62 68.49 -78.22 64.73C-78.82 60.97 -78.3 56.53 -78.31 52.79C-78.33 49.04 -78.31 45.59 -78.31 42.26C-78.31 38.92 -78.31 35.81 -78.31 32.78C-78.31 29.74 -78.31 26.87 -78.31 24.04C-78.31 21.21 -78.31 18.5 -78.31 15.81C-78.31 13.12 -78.31 10.51 -78.31 7.9C-78.31 5.28 -78.31 2.72 -78.31 0.14C-78.31 -2.45 -78.35 -5.02 -78.31 -7.63C-78.26 -10.23 -78.21 -12.85 -78.04 -15.49C-77.87 -18.12 -77.62 -20.78 -77.27 -23.45C-76.92 -26.12 -76.47 -28.81 -75.92 -31.51C-75.38 -34.22 -74.8 -36.97 -74.01 -39.68C-73.21 -42.38 -72.19 -45.01 -71.17 -47.73C-70.16 -50.45 -69.2 -53.3 -67.92 -55.98C-66.64 -58.65 -65.1 -61.24 -63.47 -63.78C-61.84 -66.32 -60.06 -68.82 -58.14 -71.22C-56.21 -73.62 -54.15 -75.98 -51.93 -78.18C-49.71 -80.39 -47.36 -82.57 -44.83 -84.45C-42.3 -86.32 -39.54 -87.92 -36.74 -89.42C-33.95 -90.91 -31.03 -92.26 -28.06 -93.41C-25.08 -94.56 -22 -95.53 -18.9 -96.31C-15.79 -97.1 -12.61 -97.71 -9.42 -98.13C-6.23 -98.56 -2.99 -98.9 0.22 -98.87C3.44 -98.84 6.66 -98.36 9.85 -97.93C13.04 -97.5 16.24 -97.06 19.34 -96.29C22.44 -95.51 25.52 -94.48 28.46 -93.25C31.4 -92.02 34.22 -90.46 36.98 -88.91C39.74 -87.35 42.53 -85.85 45.02 -83.95C47.51 -82.05 49.73 -79.7 51.92 -77.49C54.11 -75.29 56.24 -73.06 58.15 -70.69C60.07 -68.32 61.83 -65.82 63.44 -63.29C65.04 -60.76 66.45 -58.11 67.77 -55.49C69.1 -52.87 70.35 -50.25 71.39 -47.58C72.44 -44.91 73.26 -42.15 74.04 -39.45C74.82 -36.75 75.5 -34.07 76.07 -31.39C76.65 -28.71 77.14 -26.04 77.48 -23.38C77.82 -20.72 77.9 -18.04 78.11 -15.41C78.32 -12.78 78.63 -10.21 78.74 -7.62C78.85 -5.03 78.76 -2.45 78.76 0.14Z"/><g class="g-eyes"><g class="g-blink"><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.08 0.05 0.99 -21.39 -9.01)"/><path d="M-10.5 -11.5A10.5 10.5 0 0 1 0 -22L0 -22A10.5 10.5 0 0 1 10.5 -11.5L10.5 11.5A10.5 10.5 0 0 1 0 22L0 22A10.5 10.5 0 0 1 -10.5 11.5Z" transform="matrix(0.96 -0.01 0.05 0.99 23.94 -11.23)"/></g></g></svg><span>Done. Monument Valley it is.</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Remote. -->
+    <section class="sec" id="remote" aria-labelledby="h-remote">
+      <span class="badge orange" data-reveal><i></i>New</span>
+      <h2 id="h-remote" class="display" data-reveal><span class="line"><span class="line-in">Control it from <em>anywhere</em>.</span></span></h2>
+      <div class="split" data-reveal>
+        <p class="split-h">Your computer, in your pocket</p>
+        <p>Sign in on both apps and your computers show up on your phone, wherever you are. At home it goes straight over your Wi-Fi; away, through our relay, encrypted end to end either way.</p>
+      </div>
+      <figure class="remote-scene" data-reveal aria-label="A phone connected to a computer far away">
+        <div class="iphone rs-phone">
+          <div class="iphone-screen">
+            <span class="island"></span>
+            <p class="rs-title">Your computers</p>
+            <ul class="pc-list">
+                  <li class="on"><span class="pc-ico"></span><span><b>Studio PC</b><small>Windows · online</small></span><i class="go">Connect</i></li>
+                  <li class="on"><span class="pc-ico"></span><span><b>Living room</b><small>Linux · online</small></span><i class="go">Connect</i></li>
+                  <li><span class="pc-ico"></span><span><b>Work laptop</b><small>asleep</small></span></li>
+                </ul>
+          </div>
+        </div>
+        <svg class="rs-link" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true">
+          <path id="rsPath" d="M10 150 C 160 20, 440 20, 590 120"/>
+          <circle r="5" class="pkt"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#rsPath"/></animateMotion></circle>
+          <circle r="5" class="pkt b"><animateMotion dur="2.4s" begin="-1.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#rsPath"/></animateMotion></circle>
+        </svg>
+        <span class="rs-lock"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2.5"/></svg>End-to-end encrypted</span>
+        <div class="rs-pc">
+          <div class="mac pcwin">
+          <div class="mac-bar"><i class="lights"><b></b><b></b><b></b></i><span class="mac-title">Studio PC</span></div>
+          <div class="mac-body">
+            <div class="rs-screen"><span class="rs-win"></span><span class="rs-win b"></span><svg class="rs-cursor" viewBox="0 0 16 22" width="16" height="22"><path d="M1 1v17l4.5-4.2 3 6.8 2.8-1.2-3-6.6H14z"/></svg></div>
+          </div>
+        </div>
+        </div>
+      </figure>
+    </section>
+
+    <!-- Everything else. -->
+    <section class="sec" id="more" aria-labelledby="h-more">
+      <h2 id="h-more" class="display" data-reveal><span class="line"><span class="line-in">Everything a trackpad does.</span></span><span class="line"><span class="line-in"><em class="grey">And the keyboard, too.</em></span></span></h2>
+      <div class="cards">
+        <article class="card warm" data-reveal>
+          <div class="card-copy"><h3>One thumb, three states</h3><p>Tap ctrl, shift or alt once to arm it, twice to hold it. Alt-tab with a single thumb.</p></div>
+          <div class="card-play"><div class="mods" id="mods">
             <button data-mod="ctrl" data-s="off" aria-label="ctrl, off">ctrl</button>
             <button data-mod="shift" data-s="off" aria-label="shift, off">shift</button>
             <button data-mod="alt" data-s="off" aria-label="alt, off">alt</button>
             <span class="mod-state" id="modState" aria-live="polite">Tap a key. Tap again to hold it.</span>
           </div>
-          <pre class="code log short" id="modLog" aria-label="Messages sent to the computer"><span class="row old">// tap a key to see what is sent</span></pre>
+            <pre class="code log short" id="modLog" aria-label="Messages sent to the computer"><span class="row old">// tap a key to see what is sent</span></pre></div>
         </article>
-        <article class="kit-b" data-reveal>
-          <h3>See what you are pointing at</h3>
-          <p>The phone can show the computer's screen. Zoom crops the source rather than magnifying the picture, so detail appears instead of blur, and it costs less to send.</p>
-          <div class="zoom">
+        <article class="card cool" data-reveal>
+          <div class="card-copy"><h3>See your screen, up close</h3><p>Drag the slider: zoom crops the real screen, so detail appears instead of blur.</p></div>
+          <div class="card-play"><div class="zoom">
             <div class="zoom-screen" id="zoomScreen" aria-hidden="true">
               <div class="zoom-scene" id="zoomScene">
                 <div class="win w1"><i></i><b></b><b></b><b class="s"></b></div>
@@ -307,100 +373,72 @@
               </div>
             </div>
             <label class="zoom-ctl">Zoom <input type="range" id="zoomRange" min="1" max="8" step="0.1" value="1"> <output id="zoomOut">1×</output></label>
-          </div>
+          </div></div>
         </article>
-        <article class="kit-c" data-reveal>
-          <div>
-            <h3>Files, volume and a keyboard</h3>
-            <p>Send photos and files to the computer, or pick up what it has waiting for you, over the same Wi-Fi and never through a server. The bar under the pad holds the keyboard, the screen preview, files and the assistant, and volume sits on the pad's edge: louder above, quieter below, with mute between them, which reads <b>Unmute</b> once the app believes the computer is muted. Type anything, including emoji and non-Latin text.</p>
+      </div>
+      <ul class="grid">
+          <li data-reveal><span class="gi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11M12 10.5V4.5a1.5 1.5 0 0 1 3 0v6.5M15 10.5V7a1.5 1.5 0 0 1 3 0v6.5c0 4-2.5 7-6.5 7S5 18 4.5 15l-.8-2.7a1.5 1.5 0 0 1 2.7-1.2L8 13.5"/></svg></span><p><b>Gestures you know.</b> Tap to click, two fingers to scroll or right-click, hold to drag.</p></li>
+          <li data-reveal><span class="gi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6 10h.01M9.5 10h.01M13 10h.01M16.5 10h.01M7.5 14h9"/></svg></span><p><b>Any keyboard, any language.</b> Type in whatever your phone types: accents, emoji, non-Latin text.</p></li>
+          <li data-reveal><span class="gi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4.5" width="12" height="16" rx="2"/><path d="M9.5 4.5V3h5v1.5M9 10h6M9 13.5h6M9 17h3.5"/></svg></span><p><b>Clipboard both ways.</b> Paste what you copied on the phone, or copy from the computer back to it.</p></li>
+          <li data-reveal><span class="gi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 18v-6M9.5 14.5 12 12l2.5 2.5"/></svg></span><p><b>Files both ways.</b> Photos to the computer, downloads to the phone. No cable, no cloud drive.</p></li>
+          <li data-reveal><span class="gi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg></span><p><b>Volume on the edge.</b> Slide up the pad's edge for louder, down for quieter, mute in between.</p></li>
+          <li data-reveal><span class="gi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8M10.5 8v5M8 10.5h5"/></svg></span><p><b>Your screen, on your phone.</b> Watch the computer from the couch, and zoom in: it crops, so small text stays sharp.</p></li>
+          <li data-reveal><span class="gi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.7 5.6L4 15.5M4 20v-4.5h4.5"/></svg></span><p><b>Comes back by itself.</b> Restart either side or change rooms: the phone reconnects without asking.</p></li>
+          <li data-reveal><span class="gi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2.5"/></svg></span><p><b>Private by design.</b> Encrypted end to end, at home or away. Not even our relay can read it.</p></li>
+      </ul>
+    </section>
+
+    <!-- Download. -->
+    <section class="sec" id="download" aria-labelledby="h-dl">
+      <h2 id="h-dl" class="display" data-reveal><span class="line"><span class="line-in">On your desk and</span></span><span class="line"><span class="line-in"><em>in your hand.</em></span></span></h2>
+      <div class="dl-grid">
+        <article class="dl-card" data-reveal>
+          <div class="mac ">
+          <div class="mac-bar"><i class="lights"><b></b><b></b><b></b></i><span class="mac-title">Computer</span></div>
+          <div class="mac-body">
+            <h3>For your computer</h3><p>Free. Windows 10 or later, and Linux, both in beta. macOS is on the way.</p><div class="dl-btns"><a class="btn primary" data-dl="windows" data-soon="Windows download: coming soon" href="#download"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#f25022" d="M2 2h9.5v9.5H2z"/><path fill="#7fba00" d="M12.5 2H22v9.5h-9.5z"/><path fill="#00a4ef" d="M2 12.5h9.5V22H2z"/><path fill="#ffb900" d="M12.5 12.5H22V22h-9.5z"/></svg><span>Windows</span><span class="tag">soon</span></a><a class="btn" data-dl="linux" data-soon="Linux download: coming soon" href="#download"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489a.424.424 0 00-.11.135c-.26.268-.45.6-.663.839-.199.199-.485.267-.797.4-.313.136-.658.269-.864.68-.09.189-.136.394-.132.602 0 .199.027.4.055.536.058.399.116.728.04.97-.249.68-.28 1.145-.106 1.484.174.334.535.47.94.601.81.2 1.91.135 2.774.6.926.466 1.866.67 2.616.47.526-.116.97-.464 1.208-.946.587-.003 1.23-.269 2.26-.334.699-.058 1.574.267 2.577.2.025.134.063.198.114.333l.003.003c.391.778 1.113 1.132 1.884 1.071.771-.06 1.592-.536 2.257-1.306.631-.765 1.683-1.084 2.378-1.503.348-.199.629-.469.649-.853.023-.4-.2-.811-.714-1.376v-.097l-.003-.003c-.17-.2-.25-.535-.338-.926-.085-.401-.182-.786-.492-1.046h-.003c-.059-.054-.123-.067-.188-.135a.357.357 0 00-.19-.064c.431-1.278.264-2.55-.173-3.694-.533-1.41-1.465-2.638-2.175-3.483-.796-1.005-1.576-1.957-1.56-3.368.026-2.152.236-6.133-3.544-6.139zm.529 3.405h.013c.213 0 .396.062.584.198.19.135.33.332.438.533.105.259.158.459.166.724 0-.02.006-.04.006-.06v.105a.086.086 0 01-.004-.021l-.004-.024a1.807 1.807 0 01-.15.706.953.953 0 01-.213.335.71.71 0 00-.088-.042c-.104-.045-.198-.064-.284-.133a1.312 1.312 0 00-.22-.066c.05-.06.146-.133.183-.198.053-.128.082-.264.088-.402v-.02a1.21 1.21 0 00-.061-.4c-.045-.134-.101-.2-.183-.333-.084-.066-.167-.132-.267-.132h-.016c-.093 0-.176.03-.262.132a.8.8 0 00-.205.334 1.18 1.18 0 00-.09.4v.019c.002.089.008.179.02.267-.193-.067-.438-.135-.607-.202a1.635 1.635 0 01-.018-.2v-.02a1.772 1.772 0 01.15-.768c.082-.22.232-.406.43-.533a.985.985 0 01.594-.2zm-2.962.059h.036c.142 0 .27.048.399.135.146.129.264.288.344.465.09.199.14.4.153.667v.004c.007.134.006.2-.002.266v.08c-.03.007-.056.018-.083.024-.152.055-.274.135-.393.2.012-.09.013-.18.003-.267v-.015c-.012-.133-.04-.2-.082-.333a.613.613 0 00-.166-.267.248.248 0 00-.183-.064h-.021c-.071.006-.13.04-.186.132a.552.552 0 00-.12.27.944.944 0 00-.023.33v.015c.012.135.037.2.08.334.046.134.098.2.166.268.01.009.02.018.034.024-.07.057-.117.07-.176.136a.304.304 0 01-.131.068 2.62 2.62 0 01-.275-.402 1.772 1.772 0 01-.155-.667 1.759 1.759 0 01.08-.668 1.43 1.43 0 01.283-.535c.128-.133.26-.2.418-.2zm1.37 1.706c.332 0 .733.065 1.216.399.293.2.523.269 1.052.468h.003c.255.136.405.266.478.399v-.131a.571.571 0 01.016.47c-.123.31-.516.643-1.063.842v.002c-.268.135-.501.333-.775.465-.276.135-.588.292-1.012.267a1.139 1.139 0 01-.448-.067 3.566 3.566 0 01-.322-.198c-.195-.135-.363-.332-.612-.465v-.005h-.005c-.4-.246-.616-.512-.686-.71-.07-.268-.005-.47.193-.6.224-.135.38-.271.483-.336.104-.074.143-.102.176-.131h.002v-.003c.169-.202.436-.47.839-.601.139-.036.294-.065.466-.065zm2.8 2.142c.358 1.417 1.196 3.475 1.735 4.473.286.534.855 1.659 1.102 3.024.156-.005.33.018.513.064.646-1.671-.546-3.467-1.089-3.966-.22-.2-.232-.335-.123-.335.59.534 1.365 1.572 1.646 2.757.13.535.16 1.104.021 1.67.067.028.135.06.205.067 1.032.534 1.413.938 1.23 1.537v-.043c-.06-.003-.12 0-.18 0h-.016c.151-.467-.182-.825-1.065-1.224-.915-.4-1.646-.336-1.77.465-.008.043-.013.066-.018.135-.068.023-.139.053-.209.064-.43.268-.662.669-.793 1.187-.13.533-.17 1.156-.205 1.869v.003c-.02.334-.17.838-.319 1.35-1.5 1.072-3.58 1.538-5.348.334a2.645 2.645 0 00-.402-.533 1.45 1.45 0 00-.275-.333c.182 0 .338-.03.465-.067a.615.615 0 00.314-.334c.108-.267 0-.697-.345-1.163-.345-.467-.931-.995-1.788-1.521-.63-.4-.986-.87-1.15-1.396-.165-.534-.143-1.085-.015-1.645.245-1.07.873-2.11 1.274-2.763.107-.065.037.135-.408.974-.396.751-1.14 2.497-.122 3.854a8.123 8.123 0 01.647-2.876c.564-1.278 1.743-3.504 1.836-5.268.048.036.217.135.289.202.218.133.38.333.59.465.21.201.477.335.876.335.039.003.075.006.11.006.412 0 .73-.134.997-.268.29-.134.52-.334.74-.4h.005c.467-.135.835-.402 1.044-.7zm2.185 8.958c.037.6.343 1.245.882 1.377.588.134 1.434-.333 1.791-.765l.211-.01c.315-.007.577.01.847.268l.003.003c.208.199.305.53.391.876.085.4.154.78.409 1.066.486.527.645.906.636 1.14l.003-.007v.018l-.003-.012c-.015.262-.185.396-.498.595-.63.401-1.746.712-2.457 1.57-.618.737-1.37 1.14-2.036 1.191-.664.053-1.237-.2-1.574-.898l-.005-.003c-.21-.4-.12-1.025.056-1.69.176-.668.428-1.344.463-1.897.037-.714.076-1.335.195-1.814.12-.465.308-.797.641-.984l.045-.022zm-10.814.049h.01c.053 0 .105.005.157.014.376.055.706.333 1.023.752l.91 1.664.003.003c.243.533.754 1.064 1.189 1.637.434.598.77 1.131.729 1.57v.006c-.057.744-.48 1.148-1.125 1.294-.645.135-1.52.002-2.395-.464-.968-.536-2.118-.469-2.857-.602-.369-.066-.61-.2-.723-.4-.11-.2-.113-.602.123-1.23v-.004l.002-.003c.117-.334.03-.752-.027-1.118-.055-.401-.083-.71.043-.94.16-.334.396-.4.69-.533.294-.135.64-.202.915-.47h.002v-.002c.256-.268.445-.601.668-.838.19-.201.38-.336.663-.336zm7.159-9.074c-.435.201-.945.535-1.488.535-.542 0-.97-.267-1.28-.466-.154-.134-.28-.268-.373-.335-.164-.134-.144-.333-.074-.333.109.016.129.134.199.2.096.066.215.2.36.333.292.2.68.467 1.167.467.485 0 1.053-.267 1.398-.466.195-.135.445-.334.648-.467.156-.136.149-.267.279-.267.128.016.034.134-.147.332a8.097 8.097 0 01-.69.468zm-1.082-1.583V5.64c-.006-.02.013-.042.029-.05.074-.043.18-.027.26.004.063 0 .16.067.15.135-.006.049-.085.066-.135.066-.055 0-.092-.043-.141-.068-.052-.018-.146-.008-.163-.065zm-.551 0c-.02.058-.113.049-.166.066-.047.025-.086.068-.14.068-.05 0-.13-.02-.136-.068-.01-.066.088-.133.15-.133.08-.031.184-.047.259-.005.019.009.036.03.03.05v.02h.003z"/></svg><span>Linux</span><span class="tag">soon</span></a></div>
           </div>
-          <figure class="app">
-            <div class="phone">
-              <picture>
-                <source media="(prefers-color-scheme: dark)" srcset="assets/app-dark.png">
-                <img src="assets/app-light.png" width="390" height="844" alt="The phone app: a full-height trackpad with a ruler along its edges, the gesture legend, and a bar of Keyboard, Screen, Files and Ask." loading="lazy">
-              </picture>
-            </div>
-            <figcaption>The phone app.</figcaption>
-          </figure>
+        </div>
+        </article>
+        <article class="dl-card" data-reveal>
+          <div class="mac ">
+          <div class="mac-bar"><i class="lights"><b></b><b></b><b></b></i><span class="mac-title">Phone</span></div>
+          <div class="mac-body">
+            <h3>For your iPhone</h3><p>The pad, the keyboard, the screen and the assistant. Coming to the App Store.</p><div class="dl-btns"><a class="btn dark" data-dl="ios" data-soon="iPhone app: coming soon to the App Store" href="#download"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg><span>App Store</span><span class="tag">soon</span></a></div>
+          </div>
+        </div>
         </article>
       </div>
     </section>
 
-    <!-- PRIVATE -->
-    <section class="sec wrap" id="private" aria-labelledby="h-priv">
-      <h2 id="h-priv" data-reveal>
-        <span class="line"><span class="line-in">It stays on</span></span>
-        <span class="line"><span class="line-in">your network.</span></span>
-      </h2>
-      <dl class="facts" data-reveal>
-        <div><dt>Accounts or servers of ours</dt><dd>0</dd><p>The phone talks to the computer directly, on your network. Only the optional voice assistant reaches outside it: to OpenAI, with your own key, and only when you use it.</p></div>
-        <div><dt>Pairing token</dt><dd>128<small>-bit</small></dd><p>Fresh on every launch, and spent by the first pairing. A release build never prints it.</p></div>
-        <div><dt>Phones at once</dt><dd>1</dd><p>A second device is refused while the first holds the session.</p></div>
-      </dl>
-    </section>
-
-    <!-- INSTALL -->
-    <section class="sec wrap" id="install" aria-labelledby="h-inst">
-      <h2 id="h-inst" data-reveal>
-        <span class="line"><span class="line-in">Free. Two installs.</span></span>
-        <span class="line"><span class="line-in">One Wi-Fi network.</span></span>
-      </h2>
-      <p class="honest" data-reveal>LazyMouse is free, and it stays free: no account, no subscription, no paid tier. Install it on the computer and on your iPhone, join the same Wi-Fi, and scan the code the computer shows. Today that means Windows and iPhone; macOS and Linux versions are on the way.</p>
-      <div class="two">
-        <article class="card" data-reveal id="get-windows">
-          <div class="card-head">
-            <img class="app-ico flat" src="assets/desktop-icon.svg" alt="" width="84" height="84">
-            <div><h3>Computer</h3><p class="meta">Windows 10 or later, beta. macOS and Linux on the way.</p></div>
-          </div>
-          <a class="store soon" data-dl="windows" data-soon="Windows download: coming soon">
-            <span class="store-ico"><img src="assets/desktop-icon.svg" alt="" width="58" height="58"></span>
-            <span class="store-txt"><small>Download for</small><b>Windows</b></span>
-            <span class="store-go" aria-hidden="true"><span class="tag">Soon</span><svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
-          </a>
-          <p class="dl-note" data-note="windows">Not available yet. The installer will be here when LazyMouse launches.</p>
-          <p class="after">Run it, and a QR code appears. That is all the computer needs.</p>
-          <p class="beta-note">Beta 0.1.0, an <code>.msi</code> installer. Windows may warn that the publisher is unrecognised, because the installer is new: choose <b>More info</b>, then <b>Run anyway</b>. The app updates itself when you ask it to.</p>
-          <ul class="platforms" aria-label="Computer platforms">
-            <li><span>Windows</span><span class="state now">Beta</span></li>
-            <li><span>macOS</span><span class="state">On the way</span></li>
-            <li><span>Linux</span><span class="state">On the way</span></li>
-          </ul>
-        </article>
-        <article class="card" data-reveal id="get-iphone">
-          <div class="card-head">
-            <span class="glass" id="glass" aria-hidden="true"><img src="assets/app-icon.png" alt="" width="84" height="84"></span>
-            <div><h3>iPhone</h3><p class="meta">iPhone only for now</p></div>
-          </div>
-          <a class="store soon" data-dl="ios" data-soon="iPhone app: coming soon to the App Store">
-            <span class="store-ico glass-mini"><img src="assets/app-icon.png" alt="" width="58" height="58"></span>
-            <span class="store-txt"><small>Download on the</small><b>App Store</b></span>
-            <span class="store-go" aria-hidden="true"><span class="tag">Soon</span><svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
-          </a>
-          <p class="dl-note" data-note="ios">Not available yet. LazyMouse is coming to the App Store.</p>
-          <p class="after">Open it, scan the QR code on your computer, and the pad takes over.</p>
-        </article>
-      </div>
-      <p class="reqs" data-reveal>Both halves have to be the same version. The pair refuses to connect otherwise, and says why.</p>
-    </section>
+    <!-- The close, with the ghost asleep. -->
     <section class="close" aria-labelledby="h-close">
-      <div class="wrap">
-        <h2 id="h-close"><span class="line"><span class="line-in">Pair once.</span></span><span class="line"><span class="line-in">Stay on the couch.</span></span></h2>
-        <p>Scan the code, put the computer down, and the cursor is under your thumb.</p>
-        <a class="btn" href="#install">Install it, free</a>
+      <div class="close-copy">
+        <h2 id="h-close" class="display"><span class="line"><span class="line-in">The trackpad is in your hand.</span></span><span class="line"><span class="line-in"><em class="grey">Try it from the couch tonight.</em></span></span></h2>
+        <a class="btn primary" href="#download"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#f25022" d="M2 2h9.5v9.5H2z"/><path fill="#7fba00" d="M12.5 2H22v9.5h-9.5z"/><path fill="#00a4ef" d="M2 12.5h9.5V22H2z"/><path fill="#ffb900" d="M12.5 12.5H22V22h-9.5z"/></svg><span>Get lazymouse</span></a>
+      </div>
+      <div class="sleeper" aria-hidden="true">
+        <span class="zz"><i>z</i><i>z</i><i>Z</i></span>
+        <svg class="sleep-ghost" viewBox="-86 -106 172 215"><path class="g-body" d="M78.76 0.14C78.76 2.72 78.76 5.28 78.76 7.9C78.76 10.51 78.76 13.12 78.76 15.81C78.76 18.5 78.76 21.21 78.76 24.04C78.76 26.87 78.76 29.74 78.76 32.78C78.76 35.81 78.76 38.92 78.76 42.26C78.76 45.59 78.76 49.03 78.76 52.79C78.76 56.55 79.67 61.36 78.76 64.81C77.85 68.25 76.44 72.07 73.3 73.45C70.16 74.84 63.05 71.75 59.91 73.11C56.78 74.47 56.28 78.48 54.48 81.61C52.67 84.73 51.44 89.25 49.08 91.84C46.71 94.44 43.55 96.34 40.29 97.19C37.02 98.03 33.2 98.18 29.48 96.9C25.76 95.63 21.38 90.96 17.95 89.56C14.52 88.16 11.85 88.34 8.9 88.51C5.95 88.69 3.24 89.34 0.22 90.59C-2.79 91.84 -5.84 94.21 -9.19 96.01C-12.53 97.82 -16.39 100.74 -19.85 101.42C-23.32 102.11 -26.9 101.37 -30 100.12C-33.11 98.86 -35.91 96.26 -38.47 93.88C-41.04 91.49 -43.05 88.2 -45.4 85.79C-47.75 83.38 -49.17 80.24 -52.57 79.42C-55.97 78.6 -62.11 81.54 -65.8 80.86C-69.49 80.18 -72.66 78.03 -74.73 75.34C-76.8 72.65 -77.62 68.49 -78.22 64.73C-78.82 60.97 -78.3 56.53 -78.31 52.79C-78.33 49.04 -78.31 45.59 -78.31 42.26C-78.31 38.92 -78.31 35.81 -78.31 32.78C-78.31 29.74 -78.31 26.87 -78.31 24.04C-78.31 21.21 -78.31 18.5 -78.31 15.81C-78.31 13.12 -78.31 10.51 -78.31 7.9C-78.31 5.28 -78.31 2.72 -78.31 0.14C-78.31 -2.45 -78.35 -5.02 -78.31 -7.63C-78.26 -10.23 -78.21 -12.85 -78.04 -15.49C-77.87 -18.12 -77.62 -20.78 -77.27 -23.45C-76.92 -26.12 -76.47 -28.81 -75.92 -31.51C-75.38 -34.22 -74.8 -36.97 -74.01 -39.68C-73.21 -42.38 -72.19 -45.01 -71.17 -47.73C-70.16 -50.45 -69.2 -53.3 -67.92 -55.98C-66.64 -58.65 -65.1 -61.24 -63.47 -63.78C-61.84 -66.32 -60.06 -68.82 -58.14 -71.22C-56.21 -73.62 -54.15 -75.98 -51.93 -78.18C-49.71 -80.39 -47.36 -82.57 -44.83 -84.45C-42.3 -86.32 -39.54 -87.92 -36.74 -89.42C-33.95 -90.91 -31.03 -92.26 -28.06 -93.41C-25.08 -94.56 -22 -95.53 -18.9 -96.31C-15.79 -97.1 -12.61 -97.71 -9.42 -98.13C-6.23 -98.56 -2.99 -98.9 0.22 -98.87C3.44 -98.84 6.66 -98.36 9.85 -97.93C13.04 -97.5 16.24 -97.06 19.34 -96.29C22.44 -95.51 25.52 -94.48 28.46 -93.25C31.4 -92.02 34.22 -90.46 36.98 -88.91C39.74 -87.35 42.53 -85.85 45.02 -83.95C47.51 -82.05 49.73 -79.7 51.92 -77.49C54.11 -75.29 56.24 -73.06 58.15 -70.69C60.07 -68.32 61.83 -65.82 63.44 -63.29C65.04 -60.76 66.45 -58.11 67.77 -55.49C69.1 -52.87 70.35 -50.25 71.39 -47.58C72.44 -44.91 73.26 -42.15 74.04 -39.45C74.82 -36.75 75.5 -34.07 76.07 -31.39C76.65 -28.71 77.14 -26.04 77.48 -23.38C77.82 -20.72 77.9 -18.04 78.11 -15.41C78.32 -12.78 78.63 -10.21 78.74 -7.62C78.85 -5.03 78.76 -2.45 78.76 0.14Z"/><path class="lid" d="M-44 -14 q14 12 28 0"/><path class="lid" d="M16 -14 q14 12 28 0"/></svg>
+        <span class="pillow"></span>
+        <span class="sleep-shadow"></span>
       </div>
     </section>
   </main>
 
-  <footer class="foot wrap">
-    <a class="brand" href="#top"><img src="assets/logo.svg" alt="" width="22" height="22"><span>LazyMouse</span></a>
-    <p>A phone-as-trackpad for the computer on the same Wi-Fi.</p>
-    <a href="privacy.html">Privacy</a>
-    <a href="support.html">Support</a>
-    <a href="#top" class="to-top">Back to top</a>
+  <footer class="foot">
+    <div class="foot-cols">
+      <div><b>Product</b><a href="#drag">Trackpad</a><a href="#ask">Explain</a><a href="#takeover">Takes over</a><a href="#remote">Remote</a></div>
+      <div><b>Download</b><a href="#download">Windows</a><a href="#download">Linux</a><a href="#download">iPhone</a><a href="https://github.com/irealycode/lazymouse_releases/releases/latest" rel="noopener">Releases</a></div>
+      <div><b>Help</b><a href="support.html">Support</a><a href="privacy.html">Privacy</a></div>
+    </div>
+    <div class="ghost-word" id="ghostWord" style="--cols:51" role="img" aria-label="lazymouse, spelled in ghosts"><i style="--x:0;--y:0"></i><i style="--x:1;--y:0"></i><i style="--x:1;--y:1"></i><i style="--x:1;--y:2"></i><i style="--x:1;--y:3"></i><i style="--x:1;--y:4"></i><i style="--x:1;--y:5"></i><i style="--x:0;--y:6"></i><i style="--x:1;--y:6"></i><i style="--x:2;--y:6"></i><i style="--x:5;--y:2"></i><i style="--x:6;--y:2"></i><i style="--x:7;--y:2"></i><i style="--x:8;--y:3"></i><i style="--x:5;--y:4"></i><i style="--x:6;--y:4"></i><i style="--x:7;--y:4"></i><i style="--x:8;--y:4"></i><i style="--x:4;--y:5"></i><i style="--x:8;--y:5"></i><i style="--x:5;--y:6"></i><i style="--x:6;--y:6"></i><i style="--x:7;--y:6"></i><i style="--x:8;--y:6"></i><i style="--x:10;--y:2"></i><i style="--x:11;--y:2"></i><i style="--x:12;--y:2"></i><i style="--x:13;--y:2"></i><i style="--x:14;--y:2"></i><i style="--x:13;--y:3"></i><i style="--x:12;--y:4"></i><i style="--x:11;--y:5"></i><i style="--x:10;--y:6"></i><i style="--x:11;--y:6"></i><i style="--x:12;--y:6"></i><i style="--x:13;--y:6"></i><i style="--x:14;--y:6"></i><i style="--x:16;--y:2"></i><i style="--x:20;--y:2"></i><i style="--x:16;--y:3"></i><i style="--x:20;--y:3"></i><i style="--x:16;--y:4"></i><i style="--x:20;--y:4"></i><i style="--x:17;--y:5"></i><i style="--x:18;--y:5"></i><i style="--x:19;--y:5"></i><i style="--x:20;--y:5"></i><i style="--x:20;--y:6"></i><i style="--x:17;--y:7"></i><i style="--x:18;--y:7"></i><i style="--x:19;--y:7"></i><i style="--x:22;--y:2"></i><i style="--x:23;--y:2"></i><i style="--x:25;--y:2"></i><i style="--x:22;--y:3"></i><i style="--x:24;--y:3"></i><i style="--x:26;--y:3"></i><i style="--x:22;--y:4"></i><i style="--x:24;--y:4"></i><i style="--x:26;--y:4"></i><i style="--x:22;--y:5"></i><i style="--x:24;--y:5"></i><i style="--x:26;--y:5"></i><i style="--x:22;--y:6"></i><i style="--x:24;--y:6"></i><i style="--x:26;--y:6"></i><i style="--x:29;--y:2"></i><i style="--x:30;--y:2"></i><i style="--x:31;--y:2"></i><i style="--x:28;--y:3"></i><i style="--x:32;--y:3"></i><i style="--x:28;--y:4"></i><i style="--x:32;--y:4"></i><i style="--x:28;--y:5"></i><i style="--x:32;--y:5"></i><i style="--x:29;--y:6"></i><i style="--x:30;--y:6"></i><i style="--x:31;--y:6"></i><i style="--x:34;--y:2"></i><i style="--x:38;--y:2"></i><i style="--x:34;--y:3"></i><i style="--x:38;--y:3"></i><i style="--x:34;--y:4"></i><i style="--x:38;--y:4"></i><i style="--x:34;--y:5"></i><i style="--x:37;--y:5"></i><i style="--x:38;--y:5"></i><i style="--x:35;--y:6"></i><i style="--x:36;--y:6"></i><i style="--x:38;--y:6"></i><i style="--x:41;--y:2"></i><i style="--x:42;--y:2"></i><i style="--x:43;--y:2"></i><i style="--x:44;--y:2"></i><i style="--x:40;--y:3"></i><i style="--x:41;--y:4"></i><i style="--x:42;--y:4"></i><i style="--x:43;--y:4"></i><i style="--x:44;--y:5"></i><i style="--x:40;--y:6"></i><i style="--x:41;--y:6"></i><i style="--x:42;--y:6"></i><i style="--x:43;--y:6"></i><i style="--x:47;--y:2"></i><i style="--x:48;--y:2"></i><i style="--x:49;--y:2"></i><i style="--x:46;--y:3"></i><i style="--x:50;--y:3"></i><i style="--x:46;--y:4"></i><i style="--x:47;--y:4"></i><i style="--x:48;--y:4"></i><i style="--x:49;--y:4"></i><i style="--x:50;--y:4"></i><i style="--x:46;--y:5"></i><i style="--x:47;--y:6"></i><i style="--x:48;--y:6"></i><i style="--x:49;--y:6"></i></div>
+    <p class="legal">© 2026 SovereignCo SARL · app names and logos belong to their owners · photos: Wikimedia Commons, CC0 and public domain · heart diagram by ZooFari, CC BY-SA 3.0</p>
   </footer>
 
   <script src="config.js"></script>
+  <script src="phone.js"></script>
   <script src="main.js"></script>
+  <script src="extras.js"></script>
 </body>
 </html>
